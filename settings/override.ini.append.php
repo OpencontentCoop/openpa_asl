@@ -48,3 +48,16 @@ MatchFile=datatype/view/openpareverserelationlist_list.tpl
 Subdir=templates
 Match[attribute_identifier]=related_offices
 
+[datatype_view_steps]
+Source=content/datatype/view/ezobjectrelationlist.tpl
+MatchFile=datatype/view/relations_howto_steps.tpl
+Subdir=templates
+Match[class_identifier]=howto
+Match[attribute_identifier]=steps
+
+[datatype_view_public_service_howto]
+Source=content/datatype/view/ezobjectrelationlist.tpl
+MatchFile=datatype/view/relations_public_service_howto.tpl
+Subdir=templates
+Match[class_identifier]=public_service
+Match[attribute_identifier]=how_to
