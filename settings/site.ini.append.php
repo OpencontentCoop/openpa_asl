@@ -3,5 +3,7 @@
 [RegionalSettings]
 TranslationExtensions[]=openpa_asl
 
+[TemplateSettings]
+ExtensionAutoloadPath[]=openpa_asl
 
 */ ?>

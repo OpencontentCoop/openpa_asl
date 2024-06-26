@@ -1,16 +1,28 @@
 <?php /* #?ini charset="utf-8"?
 
- parent_object_remote_id
+############################################
+############################################ CHILDREN
+############################################
+[children_structure]
+Source=node/view/children.tpl
+MatchFile=children/structures.tpl
+Subdir=templates
+Match[remote_id]=all-structures
 
 ############################################
 ############################################ FULL
 ############################################
+[medici_di_base_pediatri]
+Source=node/view/full.tpl
+MatchFile=full/medici_di_base_pediatri.tpl
+Subdir=templates
+Match[remote_id]=medici_di_base_pediatri
+
 [organization_as_structure]
 Source=node/view/full.tpl
 MatchFile=full/organization_as_structure.tpl
 Subdir=templates
 Match[parent_object_remote_id]=all-structures
-
 
 ############################################
 ############################################ BLOCK

@@ -26,7 +26,7 @@
 {/if}
 
 <section class="container">
-    {include uri='design:openpa/full/parts/attributes_alt.tpl' object=$node.object}
+    {include uri='design:openpa/full/parts/attributes_alt.tpl' object=$node.object summary=parse_organization_as_structure_attribute_groups($node.object)}
 </section>
 
 {if $openpa['content_tree_related'].full.exclude|not()}

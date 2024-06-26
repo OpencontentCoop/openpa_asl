@@ -127,7 +127,7 @@
     </th>
 </tr>
 
-<tr class="{$Attributes.sequence} field-detail">
+<tr class="{$Attributes.sequence} field-detail" style="display:none">
     <td>
         <input type="hidden" name="ContentAttribute_id[]" value="{$Attributes.item.id}" />
         <input type="hidden" name="ContentAttribute_position[]" value="{$Attributes.item.placement}" />
@@ -201,7 +201,7 @@
     </td>
 </tr>
 
-<tr class="{$Attributes.sequence} field-detail">
+<tr class="{$Attributes.sequence} field-detail"  style="display:none">
     <td colspan="4">
         {class_attribute_view_gui class_attribute=$Attributes.item}
     </td>

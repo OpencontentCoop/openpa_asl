@@ -177,7 +177,7 @@
 <table cellspacing="0" summary="{'Class attribute item'|i18n( 'design/admin/class/edit' )}">
 <tr>
     <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="tight"><input type="checkbox" name="ContentAttribute_id_checked[{$Attributes.item.id}]" value="{$Attributes.item.id}" title="{'Select attribute for removal. Click the "Remove selected attributes" button to remove the selected attributes.'|i18n( 'design/admin/class/edit' )|wash}" /></th>
-    <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="wide">{$Attributes.number}. {$Attributes.item.name|wash} [{$Attributes.item.data_type.information.name|wash}] (id:{$Attributes.item.id})</th>
+    <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="wide">{$Attributes.number}. {$Attributes.item.name|wash} <code>{$Attributes.item.identifier|wash()}</code> [{$Attributes.item.data_type.information.name|wash}] (id:{$Attributes.item.id})</th>
     <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="tight">
       <div class="listbutton">
           <input type="image" src={'button-move_down.gif'|ezimage} alt="{'Down'|i18n( 'design/admin/class/edit' )}" name="MoveDown_{$Attributes.item.id}" title="{'Use the order buttons to set the order of the class attributes. The up arrow moves the attribute one place up. The down arrow moves the attribute one place down.'|i18n( 'design/admin/class/edit' )|wash}" />&nbsp;
@@ -187,7 +187,7 @@
     </th>
     <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="tight"><input class="button toggle-field-detail" style="font-size: .7em;" type="button" value="Toggle" /></th>
 </tr>
-<tr class="field-detail">
+<tr class="field-detail" style="display:none">
     <td>&nbsp;</td>
     <!-- Attribute input Start -->
     <td colspan="2">
