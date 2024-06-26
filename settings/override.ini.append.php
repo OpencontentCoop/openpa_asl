@@ -73,3 +73,10 @@ MatchFile=datatype/view/relations_public_service_howto.tpl
 Subdir=templates
 Match[class_identifier]=public_service
 Match[attribute_identifier]=how_to
+
+[datatype_view_bando_concorso_is_open]
+Source=content/datatype/view/ezboolean.tpl
+MatchFile=datatype/view/boolean_bando_concorso_is_open.tpl
+Subdir=templates
+Match[class_identifier]=bando_concorso
+Match[attribute_identifier]=is_open
