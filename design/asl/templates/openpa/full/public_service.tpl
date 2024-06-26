@@ -12,18 +12,18 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-12 col-lg-10">
+        <div class="col-12">
             <div class="cmp-heading pb-3 pb-lg-4">
                 <div class="row">
                     <div class="col-lg-8">
                         <h1 class="title-xxxlarge" data-element="service-title">{$node.name|wash()}</h1>
-                        {include uri='design:openpa/full/parts/service_status.tpl'}
                         {include uri='design:openpa/full/parts/main_attributes.tpl'}
-                        {include uri='design:openpa/full/parts/service_access_button.tpl'}
+                        {include uri='design:openpa/full/parts/service_status.tpl'}
+{*                        {include uri='design:openpa/full/parts/service_access_button.tpl'}*}
                     </div>
-                    <div class="col-lg-3 offset-lg-1 mt-5 mt-lg-0">
+                    <div class="col-lg-3 mt-5 mt-lg-0 text-end">
                         {include uri='design:openpa/full/parts/actions.tpl'}
-                        {include uri='design:openpa/full/parts/taxonomy.tpl'}
+{*                        {include uri='design:openpa/full/parts/taxonomy.tpl'}*}
                     </div>
                 </div>
             </div>
@@ -34,8 +34,9 @@
     </div>
 </div>
 
-
-{include uri='design:openpa/full/parts/main_image.tpl'}
+{if $node|has_attribute('image')}
+    {include uri='design:openpa/full/parts/main_image.tpl'}
+{/if}
 
 <div class="container">
 {include uri='design:openpa/full/parts/attributes_alt.tpl' object=$node.object}
