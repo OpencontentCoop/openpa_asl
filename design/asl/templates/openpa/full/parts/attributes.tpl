@@ -1,0 +1,1 @@
+{include uri='design:openpa/full/parts/attributes_alt.tpl' object=$node.object}

@@ -1,8 +1,3 @@
-<pre class="bg-dark text-white text-center">
-    <b>TODO:</b> Qui va implementato il template di visualizzazione dell'unità organizzativa nella vista "struttura"<br />
-    (Una unità organizzativa collocata sotto alla pagina Strutture viene visualizzata come struttura)
-</pre>
-
 {def $openpa = object_handler($node)}
 {if $openpa.control_cache.no_cache}
     {set-block scope=root variable=cache_ttl}0{/set-block}
@@ -23,7 +18,7 @@
     {/foreach}
 {/if}
 
-{include uri=$openpa.control_template.full}
+{include uri='design:openpa/full/oragnization_as_structure.tpl'}
 
 {if and($openpa.content_tools.editor_tools, module_params().function_name|ne('versionview'))}
     {include uri=$openpa.content_tools.template}
