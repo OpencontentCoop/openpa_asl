@@ -187,7 +187,7 @@
     </th>
     <th{if $Attributes.item.is_required} style="background-color:#f00"{/if} class="tight"><input class="button toggle-field-detail" style="font-size: .7em;" type="button" value="Toggle" /></th>
 </tr>
-<tr class="field-detail" style="display:none">
+<tr class="field-detail">
     <td>&nbsp;</td>
     <!-- Attribute input Start -->
     <td colspan="2">
