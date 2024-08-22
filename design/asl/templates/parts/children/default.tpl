@@ -13,6 +13,10 @@
     {set $include_classes = array('pagina_sito', 'frontpage')}
 {/if}
 
+{if $node.parent.object.remote_id|eq('news')} {*documenti e dati*}
+    {set $view = 'card'}
+{/if}
+
 {def $topic_filter = concat('Users'|i18n('design/admin/setup/session'), ':user_types.name,', 'Topics'i18n('bootstrapitalia'), ':topics.name')}
 {def $search_blocks = array()}
 {if $openpa.content_tag_menu.current_view_tag}

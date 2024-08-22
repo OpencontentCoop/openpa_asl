@@ -28,8 +28,15 @@
                 {foreach $pagedata.homepage|attribute('main_phone_contacts').content.rows.sequential as $row}
                 <small class="text-xs-center text-sm-center text-md-start text-nowrap px-2 px-lg-0 pe-lg-5">
                     <span class="d-none d-lg-inline-block">{$row.columns[0]|wash()}</span>
-                    <strong>{$row.columns[1]|wash()} <a href="tel:{$row.columns[2]|wash()}">{$row.columns[2]|wash()}</a></strong>
-                    {display_icon('it-telephone', 'svg', 'icon icon-sm align-top d-none d-lg-inline-block')}
+                    {def $value = $row.columns[2]}
+                    {if or($value|begins_with('http'), $value|begins_with('/'))}
+                        <a href="{$value|wash()}"><strong>{$row.columns[1]|wash()}</strong></a>
+                    {else}
+                        <strong>{$row.columns[1]|wash()}
+                        <a href="tel:{$value|wash()}">{$value|wash()}</a></strong>
+                        {display_icon('it-telephone', 'svg', 'icon icon-sm align-top d-none d-lg-inline-block')}
+                    {/if}
+                    {undef $value}
                 </small>
                 {/foreach}
             </div>

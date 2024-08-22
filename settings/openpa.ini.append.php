@@ -10,4 +10,9 @@ AttributeIdentifiers[]
 [SideMenu]
 IdentificatoriMenu[]=user_type
 
+[TopMenu]
+LimitePrimoLivello=30
+LimiteSecondoLivello=30
+LimiteTerzoLivello=30
+
 */ ?>
