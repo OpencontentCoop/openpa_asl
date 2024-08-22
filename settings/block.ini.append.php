@@ -59,14 +59,17 @@ CustomAttributeTypes[includi_classi]=class_select
 ManualAddingOfItems=disabled
 ViewList[]
 ViewList[]=default
+ViewList[]=map
 ViewName[]
 ViewName[default]=Default
+ViewName[map]=Mappa
 ItemsPerRow[]
 ContainerStyle[]
 CanAddShowAllLink=enabled
 CanAddIntroText=enabled
 Wide[]
 Wide[]=default
+Wide[]=map
 
 [SearchBySubtree]
 Name=Ricerca per alberatura

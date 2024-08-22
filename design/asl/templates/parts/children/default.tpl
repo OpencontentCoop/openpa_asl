@@ -22,7 +22,7 @@
             "SearchByTopicAndUserType",
             "default",
             hash(
-                "limite", "8",
+                "limite", "4",
                 "includi_classi", "public_service",
                 "input_search_placeholder", "Cerca un servizio o una prestazione",
                 "view_api", "card_teaser",

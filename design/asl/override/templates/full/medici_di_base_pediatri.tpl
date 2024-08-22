@@ -53,6 +53,10 @@
     )))}
 {/if}
 
+{*<div class="container">
+{include uri='design:openpa/services/content_show_modified.tpl' context='attributes'}
+</div>*}
+
 {if and($openpa.content_tools.editor_tools, module_params().function_name|ne('versionview'))}
     {include uri=$openpa.content_tools.template}
 {/if}

@@ -18,24 +18,15 @@
     {if and($node.object.remote_id|eq('all-structures'), $openpa.content_tag_menu.current_view_tag)}
         {set $search_blocks = array(page_block(
             "",
-            "OpendataRemoteContents",
-            "default",
+            "SearchByTopicAndUserType",
+            "map",
             hash(
-                "remote_url", "",
-                "query", concat("raw[ezf_df_tag_ids] in [", $openpa.content_tag_menu.current_view_tag_tree_list|implode(','), "] and classes [organization] and subtree [", $node.node_id, "]"),
-                "show_grid", "1",
-                "show_map", "1",
-                "show_search", "1",
-                "limit", "4",
-                "items_per_row", "2",
-                "facets", $topic_filter,
-                "view_api", "card",
+                "limite", "8",
+                "includi_classi", "organization",
+                "input_search_placeholder", "Cerca strutture vicino a te",
+                "view_api", "card_teaser",
                 "context_api", $node.node_id,
-                "color_style", "bg-100",
-                "fields", "",
-                "template", "",
-                "simple_geo_api", "1",
-                "input_search_placeholder", ""
+                "base_query", concat("raw[ezf_df_tag_ids] in [", $openpa.content_tag_menu.current_view_tag_tree_list|implode(','), "] and subtree [", $node.node_id, "]")
                 )
             )
         )}

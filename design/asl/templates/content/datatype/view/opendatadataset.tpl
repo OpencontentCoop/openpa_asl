@@ -153,6 +153,12 @@
     {undef $index}
     </div>
 
+    {if $attribute.data_int|gt(0)}
+    <div class="my-2">
+        <h3 class="small text-muted">{'Last modified'|i18n('bootstrapitalia')}: <span class="fw-normal">{$attribute.data_int|l10n( 'shortdatetime' )}</span></h3>
+    </div>
+    {/if}
+
     <div class="dataset-modal modal fade">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -240,8 +246,10 @@
                 cancel: "{'Cancel operation'|i18n('opendatadataset')}",
                 delete_dataset: "{'I understand the consequences, delete this dataset'|i18n('opendatadataset')}",
                 import: "{'Import'|i18n('opendatadataset')}",
-                select: "{'Select'|i18n('opendatadataset')}"
-            {rdelim}
+                select: "{'Select'|i18n('opendatadataset')}",
+                search_placeholder: "{'Search by keyword'|i18n('bootstrapitalia')}",
+            {rdelim},
+            searchInput: {cond($attribute.content.settings.search_form, 'true', 'false')}
         {rdelim});
         {rdelim}else{ldelim}
             console.log('can not load datasetView plugin');

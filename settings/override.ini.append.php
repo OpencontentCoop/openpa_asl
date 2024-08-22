@@ -49,6 +49,12 @@ Subdir=templates
 Match[type]=SearchBySubtree
 Match[view]=default
 
+[block_user_type_topic_search_map]
+Source=block/view/view.tpl
+MatchFile=block/user_type_topic_search_map.tpl
+Subdir=templates
+Match[type]=SearchByTopicAndUserType
+Match[view]=map
 
 ############################################
 ############################################ DATATYPE VIEW
