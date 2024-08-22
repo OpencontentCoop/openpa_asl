@@ -34,26 +34,16 @@
                             <div class="cmp-input-search position-relative">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <label for="{$block.id}-address" class="visually-hidden">{'Search'|i18n('design/plain/layout')}</label>
-                                        <input type="search" class="autocomplete form-control" id="{$block.id}-address" name="address">
-
+                                        <label for="{$block.id}-search" class="visually-hidden">{'Search'|i18n('design/plain/layout')}</label>
+                                        <input type="search" class="autocomplete form-control" id="{$block.id}-search" name="q" data-bs-autocomplete="[]" data-focus-mouse="false">
                                         <div class="input-group-append">
-                                            <button class="btn btn-primary rounded-0" type="button" name="geosearch">{'Search'|i18n('design/plain/layout')}</button>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-link border" type="button" name="position" title="{'My current location'|i18n('extension/ezgmaplocation/datatype')}">
-                                                <i class="fa fa-compass fa-2x"></i>
-                                            </button>
+                                            <button class="btn btn-primary rounded-0" type="submit" id="button-3">{'Search'|i18n('design/plain/layout')}</button>
                                         </div>
                                         <span class="autocomplete-icon" aria-hidden="true">
                                             {display_icon('it-search', 'svg', 'icon icon-sm icon-primary', 'Search'|i18n('design/plain/layout'))}
                                         </span>
                                     </div>
-                                    <div class="form-text">
-                                        Inserisci un indirizzo{if is_set(openpapagedata().contacts.indirizzo)}, ad esempio {openpapagedata().contacts.indirizzo|wash()}{/if}
-                                    </div>
                                 </div>
-                                <div class="suggestions" style="position: absolute;z-index: 10000;background: #fff;width: 100%;top: 44px;"></div>
                             </div>
                         </div>
                     </div>
@@ -268,21 +258,12 @@
     };
     let isFiltersBuilt = false;
     let map = L.map(baseId + '-map').setView([0, 0], 1);
-    // map.scrollWheelZoom.disable();
+    map.scrollWheelZoom.disable();
     L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
-    let userMarker = new L.Marker(new L.LatLng(0, 0), {
-      zIndexOffset: -100,
-      icon: L.divIcon({html: '<span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x text-danger"></i><i class="fa fa-map-marker fa-stack-1x fa-inverse"></i</span>',iconSize: [20, 20],className: 'myDivIcon'})
-    })
-    let nearestLayer = L.featureGroup().addTo(map);
-    let userMarkers = L.featureGroup().addTo(map);
     let markers = L.markerClusterGroup().addTo(map);
-    let polygonWkt = false;
-
     form.find('[data-param], input[type="checkbox"], input[type="radio"]').on('change', function () {
       form.trigger('submit');
     });
-
     form.on('submit', function (e) {
       let formSerializeArray = $(this).serializeArray();
       let d = {};
@@ -303,9 +284,6 @@
         else
           query.push(i + ' in [\'' + v.join('\',\'') + '\']');
       });
-      if (polygonWkt){
-        query.push('raw[extra_geo_rpt] = "IsWithin\\(POLYGON\\(\\(' + polygonWkt + '\\)\\)\\) distErrPct=0"')
-      }
       let sort = $('[data-param="sort"]').val();
       let direction = $('[data-param="direction"]').val();
       query.push('sort [' + sort + '=>' + direction + ']');
@@ -318,22 +296,16 @@
 
       e.preventDefault();
     });
-
     let loadMapContents = function () {
       markers.clearLayers();
-      geoJsonFindAll(searchQuery, function (response) {
+      geoJsonFindAll(searchQuery, function (response) {        
         if (response.features.length > 0) {
           let geoJsonLayer = markerBuilder(response);
           markers.addLayer(geoJsonLayer);
-          if (polygonWkt) {
-            map.fitBounds(nearestLayer.getBounds());
-          }else{
-            map.fitBounds(markers.getBounds());
-          }
+          map.fitBounds(markers.getBounds());
         }
       });
     };
-
     let loadSearchBlockContents = function () {
       let paginatedQuery = searchQuery + ' and limit ' + limitPagination + ' offset ' + currentPage * limitPagination;
       resultsContainer.html($(spinner.render({})));
@@ -386,7 +358,6 @@
         }
       });
     };
-
     let resetSearchBlockContents = function () {
       form.find('input').each(function () {
         let input = $(this);
@@ -399,126 +370,9 @@
       form.trigger('submit');
     };
 
-    let geocoder = L.Control.Geocoder.nominatim();
-    let geoSearchAddress = form.find('[name=address]');
-    let geoSearchButton = form.find('[name=geosearch]');
-    let suggestionContainer = form.find('.suggestions');
-
-    form.find('[name=position]').on('click', function (e) {
-      e.preventDefault();
-      map.locate({setView: false, watch: false})
-        .on('locationfound', function (e) {
-          setUserMarker(new L.LatLng(e.latitude, e.longitude));
-          map.off('locationfound');
-        })
-        .on('locationerror', function (e) {
-          alert(e.message);
-          map.off('locationerror');
-        });
-    })
-
-    let clearSuggestions = function (){
-      suggestionContainer.empty();
-    }
-    let appendSuggestion = function (suggestion) {
-      $('<a class="text-muted px-2 py-1 d-block text-decoration-none" style="padding-left: 45px !important;" href="#">' + suggestion.name + '</a>')
-        .data('geocoder_result', suggestion)
-        .appendTo(suggestionContainer)
-        .on('click', function (e) {
-          var selectedSuggestion = $(this).data('geocoder_result');
-          setUserMarker(new L.LatLng(selectedSuggestion.center.lat, selectedSuggestion.center.lng), selectedSuggestion);
-          e.preventDefault();
-        });
-    };
-    let noSuggestion = function (suggestion) {
-      var item = $('<a class="text-muted px-2 py-1 d-block text-decoration-none" style="padding-left: 45px !important;" href="#"><i class="fa fa-close"></i> <em>' + i18n.no_suggestion_message + '</em></a>')
-        .appendTo(suggestionContainer)
-        .on('click', function (e) {
-          suggestionContainer.empty()
-          geoSearchAddress.val('')
-          form.trigger('submit');
-        });
-    };
-    let setUserMarker = function (latLng, address, cb, context) {
-      userMarkers.clearLayers()
-      let addressName = address ? address.name : latLng.lat+','+latLng.lng;
-      if (addressName){
-        geoSearchAddress.val(addressName)
-      }
-      clearSuggestions();
-      userMarker.setLatLng(latLng)
-      userMarkers.addLayer(userMarker)
-      findNearPlaces(latLng)
-    };
-    let findNearPlaces = function (latLng, cb, context) {
-      nearestLayer.clearLayers()
-      var circle = L.circle(latLng, 500);
-      var circleBounds = circle.getBounds();
-      var rectangle = L.rectangle(circleBounds, {
-        color: 'red',
-        weight: 1,
-        fillOpacity: 0.05
-      });
-      map.fitBounds(rectangle.getBounds());
-      var lng, lat, coords = [];
-      var latLngs = rectangle.getLatLngs();
-      for (var i = 0; i < latLngs.length; i++) {
-        coords.push(latLngs[i].lng + ' ' + latLngs[i].lat);
-        if (i === 0) {
-          lng = latLngs[i].lng;
-          lat = latLngs[i].lat;
-        }
-      }
-      polygonWkt = coords.join(',') + ',' + lng + ' ' + lat;
-      nearestLayer.addLayer(rectangle)
-      form.trigger('submit');
-    };
-    geoSearchButton.on('click', function (e){
-      e.preventDefault();
-      polygonWkt = false
-      let query = geoSearchAddress.val();
-      if (query.length === 0){
-        form.trigger('submit');
-        return
-      }
-      geocoder.geocode(query, function (response) {
-        var results = response;
-        clearSuggestions();
-        if (results.length > 0) {
-          // deduplicate suggestions
-          var suggestions = [];
-          $.each(results, function (i, o) {
-            var name = o.name;
-            var alreadySuggested = $.grep(suggestions, function(e){ return e.name === name; });
-            if (alreadySuggested.length === 0) {
-              suggestions.push(o);
-            }
-          });
-
-          if (suggestions.length > 1) {
-            $.each(suggestions, function (i, o) {
-              appendSuggestion(o);
-            });
-          } else if (suggestions.length === 1) {
-            setUserMarker(new L.LatLng(suggestions[0].center.lat, suggestions[0].center.lng), suggestions[0]);
-          } else {
-            noSuggestion();
-          }
-        } else {
-          noSuggestion();
-        }
-      });
-    })
-    geoSearchAddress.on('keypress', function (e) {
-      if (e.which === 13) {
-        geoSearchButton.trigger('click');
-        e.preventDefault();
-      }
-    });
-
     resetSearchBlockContents();
 
   });
 </script>
 {/literal}
-
+{ezscript_require(array('leaflet/leaflet.0.7.2.js','leaflet/leaflet.markercluster.js'))}

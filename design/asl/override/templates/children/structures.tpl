@@ -23,7 +23,7 @@
             hash(
                 "limite", "8",
                 "includi_classi", "organization",
-                "input_search_placeholder", "Cerca strutture vicino a te",
+                "input_search_placeholder", "Cerca strutture",
                 "view_api", "card_teaser",
                 "context_api", $node.node_id,
                 "base_query", concat("raw[ezf_df_tag_ids] in [", $openpa.content_tag_menu.current_view_tag_tree_list|implode(','), "] and subtree [", $node.node_id, "]")
