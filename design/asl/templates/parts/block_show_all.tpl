@@ -5,7 +5,7 @@
 
 {if and($show_all_link, $show_all_has_node)}
     <div class="d-flex justify-content-end mt-4">
-        <a class="text-decoration-none fw-bold" href="{$show_all_node.url_alias|ezurl(no)}"
+        <a class="text-decoration-none fw-semibold" href="{$show_all_node.url_alias|ezurl(no)}"
            {if $is_homepage|not()}data-element="{object_handler($show_all_node).data_element.value|wash()}"{/if}>
             <span class="text">
                 {if and(is_set($block.custom_attributes.show_all_text), $block.custom_attributes.show_all_text|ne(''))}
