@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 {/foreach}
-                {def $children = fetch( content, list, hash( 'parent_node_id', $node.node_id, 'class_filter_type', 'include', 'class_filter_array', array('pagina_sito') ) )}
+                {def $children = fetch( content, list, hash( 'parent_node_id', $node.node_id, 'class_filter_type', 'include', 'class_filter_array', array('dataset', 'pagina_sito') ) )}
                 {foreach $children as $child}
                     <div class="col-12 col-md-6 col-lg-4">
                         {node_view_gui content_node=$child attribute_index=-1 view=$view image_class=$image_class show_icon=false() view_variation=false()}

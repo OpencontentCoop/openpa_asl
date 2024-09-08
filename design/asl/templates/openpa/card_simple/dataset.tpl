@@ -1,11 +1,7 @@
-{def $link = $openpa.content_link.full_link}
-{if $node.object.remote_id|eq('OpenPaRuoli')}
-    {set $link = '/openpa/roles'|ezurl(no)}
-{/if}
 <div class="cmp-card-simple card-wrapper pb-0 border-bottom {$node|access_style}">
     <div class="card">
         <div class="card-body ps-1">
-            <a href="{$link}" data-element="{$openpa.data_element.value|wash()}" class="text-decoration-none d-flex">
+            <a href="{$openpa.content_link.full_link}#page-content" data-element="{$openpa.data_element.value|wash()}" class="text-decoration-none d-flex">
                 <h3 class="card-title title-xlarge flex-grow-1">
                     {$node.name|wash()}
                     {include uri='design:parts/card_title_suffix.tpl'}
@@ -23,9 +19,7 @@
                 </a>
             {/if}
             <div class="m-0">
-                {def $attributes = class_extra_parameters($node.object.class_identifier, 'card_small_view')}
-                {include uri='design:openpa/card_teaser/parts/attributes.tpl'}
-                {undef $attributes}
+                {attribute_view_gui attribute=$node|attribute('abstract')}
             </div>
         </div>
     </div>

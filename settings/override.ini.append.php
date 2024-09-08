@@ -12,17 +12,26 @@ Match[remote_id]=all-structures
 ############################################
 ############################################ FULL
 ############################################
-[medici_di_base_pediatri]
+[pagina_sito_as_structure_tag]
 Source=node/view/full.tpl
-MatchFile=full/medici_di_base_pediatri.tpl
+MatchFile=full/pagina_sito_as_structure_tag.tpl
 Subdir=templates
-Match[remote_id]=medici_di_base_pediatri
+Match[class_identifier]=pagina_sito
+Match[parent_object_remote_id]=all-structures
+
+[dataset_as_structure_tag]
+Source=node/view/full.tpl
+MatchFile=full/dataset_as_structure_tag.tpl
+Subdir=templates
+Match[class_identifier]=dataset
+Match[parent_object_remote_id]=all-structures
 
 [organization_as_structure]
 Source=node/view/full.tpl
 MatchFile=full/organization_as_structure.tpl
 Subdir=templates
 Match[parent_object_remote_id]=all-structures
+
 
 ############################################
 ############################################ BLOCK

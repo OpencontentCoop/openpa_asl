@@ -3,22 +3,35 @@
     {set-block scope=root variable=cache_ttl}0{/set-block}
 {/if}
 
+{ezpagedata_set( 'has_container', true() )}
+{ezpagedata_set( 'has_sidemenu', false() )}
 
-{def $parent = $node.parent}
-{def $parent_openpa = object_handler($parent)}
-{if and($parent_openpa.content_tag_menu.has_tag_menu, $node|has_attribute('type'))}
-    {foreach $node|attribute('type').content.tags as $tag}
-        {if $tag.parent.keyword|eq('Struttura')} {*TODO usare remote_id*}
-            {def $keyword = $tag.keyword|wash()}
-            {ezpagedata_set( 'current_content_tagged_keyword', $keyword )}
-            {ezpagedata_set( 'current_content_tagged_keyword_url', concat($parent.url_alias, '/(view)/', $keyword|urlencode()))}
-            {undef $keyword}
-            {break}
-        {/if}
-    {/foreach}
-{/if}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-10">
+            <div class="cmp-hero">
+                <section class="it-hero-wrapper bg-white align-items-start">
+                    <div class="it-hero-text-wrapper pt-0 ps-0 pb-4{if $node|has_attribute('image')|not()} pb-lg-60{/if}">
+                        <h1 class="text-black hero-title" data-element="page-name">
+                            {$node.name|wash()}
+                        </h1>
+                        <div class="hero-text">
+                            {include uri='design:openpa/full/parts/main_attributes.tpl'}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
 
-{include uri='design:openpa/full/organization_as_structure.tpl'}
+{include uri='design:zone/default.tpl' zones=array(hash('blocks', array(page_block(
+    "",
+    "Singolo",
+    "default",
+    hash(),
+    array($node.object)
+))))}
 
 {if and($openpa.content_tools.editor_tools, module_params().function_name|ne('versionview'))}
     {include uri=$openpa.content_tools.template}
