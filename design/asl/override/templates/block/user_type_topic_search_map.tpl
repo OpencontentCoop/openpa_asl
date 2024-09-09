@@ -35,7 +35,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <label for="{$block.id}-search" class="visually-hidden">{'Search'|i18n('design/plain/layout')}</label>
-                                        <input type="search" class="autocomplete form-control" id="{$block.id}-search" name="q" data-bs-autocomplete="[]" data-focus-mouse="false">
+                                        <input placeholder="{'Search by keyword'|i18n('bootstrapitalia')}" type="search" class="autocomplete form-control" id="{$block.id}-search" name="q" data-bs-autocomplete="[]" data-focus-mouse="false">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary rounded-0" type="submit" id="button-3">{'Search'|i18n('design/plain/layout')}</button>
                                         </div>
