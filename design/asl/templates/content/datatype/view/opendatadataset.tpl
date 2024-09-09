@@ -159,10 +159,13 @@
     </div>
     {/if}
 
-    <div class="dataset-modal modal fade">
+    <div class="dataset-modal modal fade" style="z-index:100000">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body pb-3">
+                    <div class="clearfix">
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true" aria-label="{'Close'|i18n('bootstrapitalia')}" title="{'Close'|i18n('bootstrapitalia')}">&times;</button>
+                    </div>
                     <div class="dataset-form clearfix"></div>
                 </div>
             </div>
