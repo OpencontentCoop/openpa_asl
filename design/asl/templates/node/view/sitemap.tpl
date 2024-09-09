@@ -53,6 +53,15 @@
                 </li>
                 {undef $tree_menu $href}
                 {/foreach}
+                {foreach array('footer_menu_area_istituzionale') as $attribute_identifier}
+                    {if $homepage|has_attribute($attribute_identifier)}
+                        {foreach $homepage|attribute($attribute_identifier).content.relation_list as $relation_item}
+                            {def $related_node = fetch(content, node, hash(node_id, $relation_item.node_id))}
+                            <li>{node_view_gui content_node=$related_node view=text_linked span_class='fm'}</li>
+                            {undef $related_node}
+                        {/foreach}
+                    {/if}
+                {/foreach}
                 <li>
                     <a href="{$topics.main_node.url_alias|ezurl(no)}"><span>{$topics.name|wash()}</span></a>
                     <ul>
@@ -92,7 +101,7 @@
                 {foreach $footer_links as $item}
                     <li>{node_view_gui content_node=$item view=text_linked span_class='fm'}</li>
                 {/foreach}
-                {foreach array('footer_menu_area_istituzionale', 'footer_menu_trasparenza') as $attribute_identifier}
+                {foreach array('footer_menu_trasparenza') as $attribute_identifier}
                     {if $homepage|has_attribute($attribute_identifier)}
                         {foreach $homepage|attribute($attribute_identifier).content.relation_list as $relation_item}
                             {def $related_node = fetch(content, node, hash(node_id, $relation_item.node_id))}
