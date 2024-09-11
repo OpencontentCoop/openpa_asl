@@ -13,7 +13,11 @@
     {set $include_classes = array('pagina_sito', 'frontpage')}
 {/if}
 
-{if $node.parent.object.remote_id|eq('news')} {*documenti e dati*}
+{if or(
+    $node.object.remote_id|eq('3da91bfec50abc9740f0f3d62c8aaac4'),
+    $node.parent.object.remote_id|eq('cb945b1cdaad4412faaa3a64f7cdd065'),
+    $node.parent.object.remote_id|eq('news')
+)}
     {set $view = 'card'}
 {/if}
 

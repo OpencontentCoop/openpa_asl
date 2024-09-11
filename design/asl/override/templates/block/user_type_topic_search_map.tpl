@@ -49,7 +49,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-8">
-                            <div id="main-search-{$block.id}-map" style="width: 100%; height: 700px"></div>
+                            <div id="main-search-{$block.id}-map" style="width: 100%; height:400px"></div>
                         </div>
                         <div class="col-12 col-sm-4">
                             <div class="row">
@@ -61,13 +61,13 @@
                                 <div class="col-7 text-end  py-3 py-sm-0" data-result_decoration  style="display:none">
                                     <label class="me-1">{'Sorting by'|i18n('openpa/search')}</label>
                                     <select data-param="sort" class="rounded">
-                                        <option selected="selected" value="published">{'Publication date'|i18n('openpa/search')}</option>
-                                        <option value="name">{'Name'|i18n('openpa/search')}</option>
+                                        <option value="published">{'Publication date'|i18n('openpa/search')}</option>
+                                        <option selected="selected" value="name">{'Name'|i18n('openpa/search')}</option>
                                     </select>
                                     <label class="d-none">Direction</label>
                                     <select data-param="direction" class="rounded">
-                                        <option selected="selected" value="desc">Z-A</option>
-                                        <option value="asc">A-Z</option>
+                                        <option selected="selected" value="asc">A-Z</option>
+                                        <option value="desc">Z-A</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,9 +103,9 @@
                                 <span class="sr-only">Pagina precedente</span>
                             </a>
                         </li>
-                        {{for pages ~current=currentPage}}
+                        <!--{{for pages ~current=currentPage}}
                             <li class="page-item"><a href="#" class="page-link page" data-page_number="{{:page}}" data-page="{{:query}}"{{if ~current == query}} data-current aria-current="page"{{/if}}>{{:page}}</a></li>
-                        {{/for}}
+                        {{/for}}-->
                         <li class="page-item {{if !nextPageQuery}}disabled{{/if}}">
                             <a class="page-link nextPage" {{if nextPageQuery}}data-page="{{>nextPage}}"{{/if}} href="#">
                                 <span class="sr-only">Pagina successiva</span>
@@ -137,6 +137,8 @@
     $.opendataTools.settings('accessPath', "{/literal}{''|ezurl(no)}{literal}");
     $.opendataTools.settings('language', "{/literal}{ezini('RegionalSettings', 'Locale')}{literal}");
     $.opendataTools.settings('locale', "{/literal}{ezini('RegionalSettings', 'Locale')|explode('-')[1]|downcase()}{literal}");
+    let defaultLat = parseFloat('{/literal}{cond(openpapagedata().contacts.latitudine|ne(''), openpapagedata().contacts.latitudine, 0)}{literal}');
+    let defaultLng = parseFloat('{/literal}{cond(openpapagedata().contacts.longitudine|ne(''), openpapagedata().contacts.longitudine, 0)}{literal}');
     let baseId = '{/literal}main-search-{$block.id}{literal}';
     let i18n = {
       no_suggestion_message: "{/literal}{'No results were found'|i18n('openpa/search')}{literal}"
@@ -145,7 +147,7 @@
     let classes = form.data('classes').split(',');
     let currentPage = 0;
     let queryPerPage = [];
-    let limitPagination = form.data('limit') || 12;
+    let limitPagination = form.data('limit') || 6;
     let baseQuery = form.data('base_query') + ' and facets [user_types.id,topics.id] and classes [' + classes.join(',') + ']';
     let searchQuery;
     let resultsContainer = form.find('.results');
@@ -257,7 +259,7 @@
       });
     };
     let isFiltersBuilt = false;
-    let map = L.map(baseId + '-map').setView([0, 0], 1);
+    let map = L.map(baseId + '-map').setView([defaultLat, defaultLng], defaultLat !== 0 ? 10 : 1);
     map.scrollWheelZoom.disable();
     L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
     let markers = L.markerClusterGroup().addTo(map);
@@ -374,5 +376,12 @@
 
   });
 </script>
+<style>
+    @media (min-width: 576px) {
+        #main-search-{/literal}{$block.id}{literal}-map {
+            height: {/literal}{if $block.custom_attributes.limite}{$block.custom_attributes.limite|mul(140)}{else}800{/if}{literal}px !important;
+        }
+    }
+</style>
 {/literal}
 {ezscript_require(array('leaflet/leaflet.0.7.2.js','leaflet/leaflet.markercluster.js'))}

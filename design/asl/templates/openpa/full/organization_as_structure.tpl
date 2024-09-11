@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h1 class="title-xxxlarge" data-element="service-title">{$node.name|wash()}</h1>
-                        {include uri='design:openpa/full/parts/main_attributes.tpl'}
+                        {include uri='design:openpa/full/parts/main_attributes.tpl' class_identifier=edit_organization_as_structure}
                     </div>
                     <div class="col-lg-3 mt-5 mt-lg-0 text-end">
                         {include uri='design:openpa/full/parts/actions.tpl'}

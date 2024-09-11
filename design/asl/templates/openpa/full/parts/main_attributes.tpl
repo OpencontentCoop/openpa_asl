@@ -1,11 +1,11 @@
-{set_defaults( hash('dates_container_class', 'mt-5 mb-4'))}
-{def $main_attributes = class_extra_parameters($node.object.class_identifier, 'table_view').in_overview}
-{def $main_labels = class_extra_parameters($node.object.class_identifier, 'table_view').show_label}
+{set_defaults( hash('dates_container_class', 'mt-5 mb-4', 'class_identifier', $node.object.class_identifier))}
+{def $main_attributes = class_extra_parameters($class_identifier, 'table_view').in_overview}
+{def $main_labels = class_extra_parameters($class_identifier, 'table_view').show_label}
 
 {def $custom_datetime_attributes = array('content_show_published','content_show_modified','reading_time', 'protocollo')}
 {def $datetime_attributes = array()}
 {def $alt_name_identifier = array('alternative_name', 'alt_name')}
-{def $skip_identifiers = array('topics', 'has_public_event_typology', 'type', 'content_type', 'document_type', 'announcement_type')}
+{def $skip_identifiers = array()}
 {def $show_date_attributes = false()}
 
 {foreach $alt_name_identifier as $identifier}
@@ -82,4 +82,4 @@
 {/if}
 
 {undef $main_labels $main_attributes $datetime_attributes $alt_name_identifier $show_date_attributes}
-{unset_defaults(array('dates_container_class'))}
+{unset_defaults(array('dates_container_class','class_identifier'))}

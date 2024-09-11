@@ -99,7 +99,7 @@
 			{if and($attribute_group.slug|eq('strutture_in_cui_opera'), count($current_entities)|gt(0))}
 				<div class="card-wrapper card-teaser-wrapper card-teaser-wrapper-equal card-teaser-block-2" style="min-width:49%">
 					{foreach $current_entities as $child }
-						{node_view_gui content_node=$child.main_node view=card_teaser show_icon=false() show_category=false() image_class=widemedium}
+						{node_view_gui content_node=$child.main_node view=card_teaser_info show_icon=false() show_category=false() image_class=widemedium}
 					{/foreach}
 				</div>
 			{/if}

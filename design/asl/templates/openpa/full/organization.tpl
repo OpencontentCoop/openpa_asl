@@ -6,7 +6,9 @@
             <div class="cmp-heading pb-3 pb-lg-4">
                 <div class="row">
                     <div class="col-lg-8">
-                        <h1 class="title-xxxlarge" data-element="service-title">{$node.name|wash()}</h1>
+                        <h1 class="title-xxxlarge" data-element="service-title">
+                            {$node.name|wash()}
+                        </h1>
                         {include uri='design:openpa/full/parts/main_attributes.tpl'}
                     </div>
                     <div class="col-lg-3 mt-5 mt-lg-0 text-end">

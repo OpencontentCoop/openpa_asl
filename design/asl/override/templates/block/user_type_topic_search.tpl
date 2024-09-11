@@ -32,7 +32,7 @@
                         {foreach $attributes as $attribute}
                             {if $attribute.identifier|eq('topics')}
                                 {def $topics_tree = topics_tree()}
-                                <div class="col-6 col-lg-12 mb-2">
+                                <div class="col-6 col-lg-12 mb-2" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
                                     <h6 class="text-uppercase mb-2">{$attribute.name|wash()}</h6>
                                     <div class="mb-3">
                                         {foreach $topics_tree as $item}
@@ -63,7 +63,7 @@
                                 {/if}
                                 {set $items_count = fetch(content, concat($attribute.fetch_function, '_count'), hash('parent_node_id', $parent_node_id, 'class_filter_type', 'include', 'class_filter_array', $attribute.class_constraint_list))}
                                 {if $items_count|gt(0)}
-                                    <div class="col-6 col-lg-12 mb-2">
+                                    <div class="col-6 col-lg-12 mb-2" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
                                         <h6 class="text-uppercase mb-2">{$attribute.name|wash()}</h6>
                                         <div class="mb-3">
                                             {def $items = fetch(content, $attribute.fetch_function, hash('parent_node_id', $parent_node_id, 'class_filter_type', 'include', 'class_filter_array', $attribute.class_constraint_list, 'sort_by', $sort_array))}
@@ -284,9 +284,12 @@
         if (!isFiltersBuilt){
           $.each(response.facets, function () {
             let facet = this;
-            $.each(facet.data, function (filterId, count) {
-              $('[data-filter="'+filterId+'"]').show();
-            });
+            if (!(facet.data.length === 0)){
+              $('[data-wrapfilter="' + facet.name + '"]').show();
+              $.each(facet.data, function (filterId, count) {
+                $('[data-filter="' + filterId + '"]').show();
+              });
+            }
           });
           isFiltersBuilt = true;
         }

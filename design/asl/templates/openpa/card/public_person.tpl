@@ -53,7 +53,9 @@
                     </h3>
                 {/if}
 
-                {include uri='design:openpa/card/parts/abstract.tpl'}
+                {def $attributes = class_extra_parameters($node.object.class_identifier, 'card_small_view')}
+                {include uri='design:openpa/card_teaser/parts/attributes.tpl'}
+                {undef $attributes}
 
         </div>
     </div>

@@ -42,7 +42,9 @@
             {literal}
                 <script>
                     $(document).ready(function(){
-                      new bootstrap.Tooltip(document.getElementById('product-version'));
+                      if ($('#product-version').length > 0) {
+                        new bootstrap.Tooltip(document.getElementById('product-version'));
+                      }
 
                       var trimmedPrefix = UriPrefix.replace(/~+$/g,"");
                         if(trimmedPrefix === '/') trimmedPrefix = '';
