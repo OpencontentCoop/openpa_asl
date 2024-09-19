@@ -118,39 +118,46 @@
         {/if}
     </div>
 
-    {if $attribute.content.views|count()|gt(1)}
-    <ul class="nav nav-tabs overflow-hidden mt-3">
+    <div class="fullscreenable">
+        {if $attribute.content.views|count()|gt(1)}
+        <ul class="nav nav-tabs overflow-hidden mt-3">
+            {def $index = 0}
+            {def $icons = $attribute.class_content.view_icons}
+            {foreach $attribute.class_content.views as $view => $name}
+            {if $attribute.content.views|contains($view)}
+            <li role="presentation" class="nav-item">
+                <a title="{$name|wash()|upfirst}" class="text-decoration-none nav-link{if $index|eq(0)} active{/if} text-sans-serif" data-active_view="{$view}" data-toggle="tab" data-bs-toggle="tab" href="#{$view}-{$attribute.id}">
+                    <i class="view_icon {$icons[$view]} me-2"></i> <span class="opendatadataset_view_name me-2">{$name|wash()|upfirst}</span>
+                </a>
+            </li>
+            {set $index = $index|inc()}
+            {/if}
+            {/foreach}
+            {undef $index $icons}
+            <li role="presentation" class="nav-item ms-auto ml-auto">
+                <a href="#" class="text-decoration-none nav-link dataset-fullscreen text-decoration-none">
+                    <i class="fa fa-expand" data-reverse="fa fa-compress"></i>
+                </a>
+            </li>
+        </ul>
+        {/if}
+
+        <div class="tab-content mt-3">
         {def $index = 0}
-        {def $icons = $attribute.class_content.view_icons}
         {foreach $attribute.class_content.views as $view => $name}
-        {if $attribute.content.views|contains($view)}
-        <li role="presentation" class="nav-item">
-            <a title="{$name|wash()|upfirst}" class="text-decoration-none nav-link{if $index|eq(0)} active{/if} text-sans-serif" data-active_view="{$view}" data-toggle="tab" data-bs-toggle="tab" href="#{$view}-{$attribute.id}">
-                <i class="view_icon {$icons[$view]} me-2"></i> <span class="opendatadataset_view_name me-2">{$name|wash()|upfirst}</span>
-            </a>
-        </li>
-        {set $index = $index|inc()}
+            {if $attribute.content.views|contains($view)}
+                {if $view|eq('calendar')}
+                    <div role="tabpanel" data-view="{$view}" class="tab-pane{if $index|eq(0)} active{/if}" id="{$view}-{$attribute.id}">
+                        <div class="block-calendar-default shadow block-calendar block-calendar-big"></div>
+                    </div>
+                {else}
+                    <div role="tabpanel" data-view="{$view}" class="tab-pane{if $index|eq(0)} active{/if}" id="{$view}-{$attribute.id}"></div>
+                {/if}
+            {set $index = $index|inc()}
         {/if}
         {/foreach}
-        {undef $index $icons}
-    </ul>
-    {/if}
-
-    <div class="tab-content mt-3">
-    {def $index = 0}
-    {foreach $attribute.class_content.views as $view => $name}
-        {if $attribute.content.views|contains($view)}
-            {if $view|eq('calendar')}
-                <div role="tabpanel" data-view="{$view}" class="tab-pane{if $index|eq(0)} active{/if}" id="{$view}-{$attribute.id}">
-                    <div class="block-calendar-default shadow block-calendar block-calendar-big"></div>
-                </div>
-            {else}
-                <div role="tabpanel" data-view="{$view}" class="tab-pane{if $index|eq(0)} active{/if}" id="{$view}-{$attribute.id}"></div>
-            {/if}
-        {set $index = $index|inc()}
-    {/if}
-    {/foreach}
-    {undef $index}
+        {undef $index}
+        </div>
     </div>
 
     {if $attribute.data_int|gt(0)}
@@ -235,7 +242,9 @@
                 settings: '{if is_set($attribute.content.settings.chart)}{$attribute.content.settings.chart}{/if}'
             {rdelim},
             datatable: {ldelim}
-                columns: JSON.parse('{$columns|json_encode()}')
+                columns: JSON.parse('{$columns|json_encode()}'),
+                defaultOrder: "{cond(and(is_set($attribute.content.settings.table.order),$attribute.content.settings.table.order|eq('asc')), 'asc', 'desc')}",
+                viewAsDescriptionList: {cond(and(is_set($attribute.content.settings.table.view),$attribute.content.settings.table.view|eq('description-list')), 'true', 'false')}
             {rdelim},
             counter: {ldelim}
                 label: "{if is_set($attribute.content.settings.counter.label)}{$attribute.content.settings.counter.label}{else}{$attribute.content.item_name|wash()}{/if}",
@@ -250,7 +259,7 @@
                 delete_dataset: "{'I understand the consequences, delete this dataset'|i18n('opendatadataset')}",
                 import: "{'Import'|i18n('opendatadataset')}",
                 select: "{'Select'|i18n('opendatadataset')}",
-                search_placeholder: "{'Search by keyword'|i18n('bootstrapitalia')}",
+                search_placeholder: "{'Search by keyword'|i18n('bootstrapitalia')}"
             {rdelim},
             searchInput: {cond($attribute.content.settings.search_form, 'true', 'false')}
         {rdelim});
