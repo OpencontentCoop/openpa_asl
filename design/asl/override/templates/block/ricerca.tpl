@@ -29,16 +29,38 @@
                 </div>
             </div>
             <div class="col-12">
-                {if count($block.valid_nodes)|gt(0)}
+                {def $terms = array()}
+                {if $block.custom_attributes.search_terms|ne('')}
+                    {def $parts = $block.custom_attributes.search_terms|explode('|')}
+                    {foreach $parts as $part}
+                        {def $labelAndValue = $part|explode('=>')}
+                        {set $terms = $terms|append(hash(
+                            'url', concat('content/search?SearchText=', $labelAndValue[1]),
+                            'label', $labelAndValue[0]
+                        ))}
+                        {undef $labelAndValue}
+                    {/foreach}
+                    {undef $parts}
+                {/if}
+                {if or(count($terms)|gt(0), count($block.valid_nodes)|gt(0))}
                 <h3 class="h6 text-muted">{'Useful links'|i18n( 'bootstrapitalia' )}</h3>
                 <ul class="list-inline" role="list">
-                    {foreach $block.valid_nodes as $valid_node}
-                        <li class="list-inline-item">
-                        {node_view_gui content_node=$valid_node a_class="text-muted" view=text_linked show_icon=false()}
-                    </li>
-                    {/foreach}
+                    {if count($block.valid_nodes)|gt(0)}
+                        {foreach $block.valid_nodes as $valid_node max 6}
+                            <li class="list-inline-item">
+                                {node_view_gui content_node=$valid_node a_class="text-muted" view=text_linked show_icon=false()}
+                            </li>
+                        {/foreach}
+                    {elseif count($terms)|gt(0)}
+                        {foreach $terms as $term max 6}
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="{$term.url|ezurl(no)}">{$term.label|wash()}</a>
+                            </li>
+                        {/foreach}
+                    {/if}
                 </ul>
                 {/if}
+                {undef $terms}
             </div>
         </div>
     </div>
