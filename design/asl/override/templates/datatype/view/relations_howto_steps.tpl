@@ -167,7 +167,6 @@
         margin: 12px 0 20px;
         font-weight: 600;
     }
-    }
     .procedure-toggle .icon {
         width: 25px;
         height: 25px;

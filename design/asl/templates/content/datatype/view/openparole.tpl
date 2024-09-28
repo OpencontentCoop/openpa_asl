@@ -126,15 +126,17 @@
 			{* in generale per abstract *}
 			{else}
 				<ul class="list-unstyled">
-				{foreach $attribute.content.main_type_per_entities as $type => $entities}
+					{foreach $attribute.content.main_type_per_entities as $type => $entities}
 					<li>
-						{if $type|begins_with('#')}
-							{$type|extract(1)|wash()}
-						{else}
-							{$type} {foreach $entities as $id => $name}<a class="d-inline" href="{concat('openpa/object/', $id)|ezurl(no)}">{$name|wash()}</a>{delimiter}, {/delimiter}{/foreach}
-						{/if}
+						<a href="{foreach $entities as $id => $name}{concat('openpa/object/', $id)|ezurl(no)}{break}{/foreach}">
+							{if $type|begins_with('#')}
+								{$type|extract(1)|wash()}
+							{else}
+								{$type} {foreach $entities as $id => $name}{$name|wash()}{delimiter}, {/delimiter}{/foreach}
+							{/if}
+						</a>
 					</li>
-				{/foreach}
+					{/foreach}
 				</ul>
 			{/if}
 		{/if}

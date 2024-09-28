@@ -7,6 +7,16 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h1 class="title-xxxlarge" data-element="service-title">{$node.name|wash()}</h1>
+                        {if count($openpa.content_asl_organization.structure_types)}
+                            <div class="mb-4">
+                                {foreach $openpa.content_asl_organization.structure_types as $tag}
+                                    <a class="chip chip-simple chip-primary text-button border-primary rounded-2 text-decoration-none"
+                                       href="{$tag.url|ezurl(no)}">
+                                        <span class="chip-label lh-sm px-2 text-nowrap">{$tag.keyword|wash}</span>
+                                    </a>
+                                {/foreach}
+                            </div>
+                        {/if}
                         {include uri='design:openpa/full/parts/main_attributes.tpl' class_identifier=edit_organization_as_structure}
                     </div>
                     <div class="col-lg-3 mt-5 mt-lg-0 text-end">

@@ -95,3 +95,10 @@ MatchFile=datatype/view/boolean_bando_concorso_is_open.tpl
 Subdir=templates
 Match[class_identifier]=bando_concorso
 Match[attribute_identifier]=is_open
+
+[datatype_view_public_service_is_physically_available_at]
+Source=content/datatype/view/ezobjectrelationlist.tpl
+MatchFile=datatype/view/relations_map.tpl
+Subdir=templates
+Match[class_identifier]=public_service
+Match[attribute_identifier]=is_physically_available_at

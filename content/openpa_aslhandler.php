@@ -1,6 +1,6 @@
 <?php
 
-class openpa_aslHandler extends eZContentObjectEditHandler
+class openpa_aslHandler extends openpa_bootstrapitaliaHandler
 {
     /**
      * @param eZHTTPTool $http
@@ -28,7 +28,7 @@ class openpa_aslHandler extends eZContentObjectEditHandler
         $validationParameters
     ) {
         $base = 'ContentObjectAttribute';
-        $result = parent::validateInput(
+        return parent::validateInput(
             $http,
             $module,
             $class,
@@ -40,16 +40,5 @@ class openpa_aslHandler extends eZContentObjectEditHandler
             $fromLanguage,
             $validationParameters
         );
-
-        return $result;
-    }
-
-    private function validateStruttura()
-    {
-        $required = [
-            'audience',
-            'user_types',
-            'accessibility'
-        ];
     }
 }

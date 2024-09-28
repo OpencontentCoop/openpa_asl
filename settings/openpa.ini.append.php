@@ -15,4 +15,16 @@ LimitePrimoLivello=30
 LimiteSecondoLivello=30
 LimiteTerzoLivello=30
 
+[ObjectHandlerServices]
+Services[content_asl_organization]=ObjectHandlerServiceContentAslOrganization
+
+[AttributeHandlers]
+UniqueStringCheck[]=document/has_code
+UniqueStringCheck[]=lotto/cig
+UniqueStringCheck[]=public_service/identifier
+
+InputValidators[]
+InputValidators[]=OrganizationValidator
+InputValidators[]=EventOrganizationValidator
+
 */ ?>
