@@ -8,8 +8,9 @@
     {/foreach}
 {/if}
 {set $params = $params|merge(hash('user_type', $get_user_types))}
-{if fetch('openpa', 'homepage')|has_attribute('topic_menu_label')}
-    {set $topic_menu_label = fetch('openpa', 'homepage')|attribute('topic_menu_label').content}
+{def $homepage = fetch('openpa', 'homepage')}
+{if $homepage|has_attribute('topic_menu_label')}
+    {set $topic_menu_label = $homepage|attribute('topic_menu_label').content}
 {/if}
 
 {set $page_limit = 20}
@@ -115,7 +116,20 @@
                         {/if}
 
                         {undef $tree_menu $display $has_children}
-
+                    {/foreach}
+                    {foreach array('footer_menu_area_istituzionale', 'footer_menu_trasparenza') as $attribute_identifier}
+                        {if $homepage|has_attribute($attribute_identifier)}
+                            {foreach $homepage|attribute($attribute_identifier).content.relation_list as $relation_item}
+                                {def $related_node = fetch(content, node, hash(node_id, $relation_item.node_id))}
+                                {if and($related_node, array('frontpage', 'pagina_sito', 'trasparenza')|contains($related_node.class_identifier), $related_node.can_read)}
+                                <div class="form-check custom-control custom-checkbox m-0">
+                                    <input name="Subtree[]" id="subtree-{$related_node.node_id}" value="{$related_node.node_id|wash()}" {if $params.subtree|contains($related_node.node_id)}checked="checked"{/if} class="custom-control-input" type="checkbox" />
+                                    <label class="custom-control-label" for="subtree-{$related_node.node_id}">{$related_node.name|wash()} {if is_set($subtree_facets[$related_node.node_id])}<small>({$subtree_facets[$related_node.node_id]})</small>{/if}</label>
+                                </div>
+                                {/if}
+                                {undef $related_node}
+                            {/foreach}
+                        {/if}
                     {/foreach}
                     </div>
                 </div>
