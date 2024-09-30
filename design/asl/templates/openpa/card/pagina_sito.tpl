@@ -10,7 +10,7 @@
     {include uri='design:openpa/card/parts/image.tpl'}
 
     <div class="col-{if $has_media}8{else}12{/if} order-1 order-md-2">
-        <div class="card-body pb-5">
+        <div class="card-body pb-5 font-sans-serif">
 
             {include uri='design:openpa/card/parts/category.tpl'}
 

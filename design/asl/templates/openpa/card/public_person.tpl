@@ -37,13 +37,13 @@
     {include uri='design:openpa/card/parts/image.tpl'}
 
     <div class="col-{if $has_media}8{else}12{/if} order-1 order-md-2">
-        <div class="card-body pb-5">
+        <div class="card-body pb-5 font-sans-serif">
 
                 {include uri='design:openpa/card/parts/category.tpl'}
 
                 {if $view_variation|eq('alt')}
                     <h3 class="card-title">
-                        <a data-element="{$openpa.data_element.value|wash()}" class="text-decoration-none" href="{$openpa.content_link.full_link}">{$node.data_map.given_name.content|wash()} {$node.data_map.family_name.content|wash()}</a>
+                        <a data-element="{$openpa.data_element.value|wash()}" class="text-decoration-none lh-sm" href="{$openpa.content_link.full_link}">{$node.data_map.given_name.content|wash()} {$node.data_map.family_name.content|wash()}</a>
                         {include uri='design:parts/card_title_suffix.tpl'}
                     </h3>
                 {else}

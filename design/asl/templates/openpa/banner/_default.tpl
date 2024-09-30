@@ -15,7 +15,7 @@
     {/if}
 
     <div class="card-body p-4 {if $attribute_index|eq(0)}order-1 col col-md-6{else}order-1 col-8{/if} {if $has_image}pe-3{/if}">
-        <h3 class="card-title fs-4 fw-semibold mb-3 lh-sm">
+        <h3 class="card-title fs-3 fw-bold mb-3 lh-sm">
             <a class="text-decoration-none" href="{$openpa.content_link.full_link}" data-element="{$data_element|wash()}" data-focus-mouse="false">
                 {include uri='design:openpa/card_teaser/parts/card_title.tpl'}
             </a>

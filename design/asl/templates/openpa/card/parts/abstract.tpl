@@ -1,4 +1,4 @@
-{set_defaults(hash('wrapper_class', 'card-text pb-3'))}
+{set_defaults(hash('wrapper_class', 'card-text font-sans-serif pb-3'))}
 {def $main_attributes = class_extra_parameters($node.object.class_identifier, 'table_view').in_overview}
 {def $main_labels = class_extra_parameters($node.object.class_identifier, 'table_view').show_label}
 {if count($main_attributes)}

@@ -99,12 +99,14 @@ class InfoConnector extends AbstractBaseConnector
                 throw new \Exception("Homepage not found");
             }
 
+            $hasAccess = eZUser::currentUser()->hasAccessTo('bootstrapitalia', 'opencity_info_editor');
+
             $this->object = $home->object();
             if ($this->object instanceof eZContentObject) {
                 if (!$this->object->canRead()) {
                     throw new \Exception("User can not read object #" . $this->object->attribute('id'));
                 }
-                if (!$this->object->canEdit() && $this->getHelper()->getParameter('view') != 'display') {
+                if ($hasAccess['accessWord'] !== 'yes') {
                     throw new \Exception("User can not edit object #" . $this->object->attribute('id'));
                 }
             }
@@ -292,7 +294,7 @@ class InfoConnector extends AbstractBaseConnector
         $contentRepository = new ContentRepository();
         $contentRepository->setEnvironment(EnvironmentLoader::loadPreset('content'));
 
-        $result = $contentRepository->update($payload->getArrayCopy());
+        $result = $contentRepository->update($payload->getArrayCopy(), true);
 
         foreach ($this->attributeConnectors as $connector) {
             if ($connector instanceof CleanableFieldConnectorInterface) {
