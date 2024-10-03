@@ -173,7 +173,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 ?? $this->findBlockById('home-search', true)['name'],
             'section_search_items' => $this->mapListaManualeToRelations('home-search') ?? [],
             'section_search_terms' => $this->decodeTerms(
-                $this->findBlockById('home-search')['custom_attributes']['search_terms']
+                (string)$this->findBlockById('home-search')['custom_attributes']['search_terms']
             ),
 
             'section_news_title' =>
