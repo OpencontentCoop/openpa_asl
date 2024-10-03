@@ -73,7 +73,7 @@
                     <div class="col-md-8 my-md-4 footer-items-wrapper">
                         <h3 class="footer-heading-title border-0">{'Contacts'|i18n('openpa/footer')}</h3>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <ul class="contact-list p-0 footer-info">
                                 {if is_set($pagedata.contacts.indirizzo)}
                                     <li style="display: flex;align-items: center;">
@@ -147,6 +147,40 @@
                                 {/if}
                                 </ul>
                             </div>
+                            {if openpaini('GeneralSettings','ShowMainContacts', 'enabled')|eq('enabled')}
+                                <div class="col-md-6">
+                                    <ul class="footer-list"> {*@todo*}
+                                        {def $faq_system = fetch(content, object, hash(remote_id, 'faq_system'))}
+                                        {if $faq_system}
+                                            <li>
+                                                <a data-element="faq" href="{object_handler($faq_system).content_link.full_link}">{'Read the FAQ'|i18n('bootstrapitalia')}</a>
+                                            </li>
+                                        {/if}
+                                        {undef $faq_system}
+                                        {if openpaini('FooterLinks', 'Booking', 'disabled')|eq('enabled')}
+                                        <li>
+                                            <a data-element="appointment-booking" href="{if is_set($pagedata.contacts['link_prenotazione_appuntamento'])}{$pagedata.contacts['link_prenotazione_appuntamento']|wash()}{else}{'prenota_appuntamento'|ezurl(no)}{/if}">
+                                                {'Book an appointment'|i18n('bootstrapitalia/footer')}
+                                            </a>
+                                        </li>
+                                        {if openpaini('FooterLinks', 'Helpdesk', 'disabled')|eq('enabled')}
+                                        {/if}
+                                        <li>
+                                            <a data-element="contacts" href="{if is_set($pagedata.contacts['link_assistenza'])}{$pagedata.contacts['link_assistenza']|wash()}{else}{'richiedi_assistenza'|ezurl(no)}{/if}">
+                                                {'Request assistance'|i18n('bootstrapitalia/footer')}
+                                            </a>
+                                        </li>
+                                            {if openpaini('FooterLinks', 'Inefficiency', 'disabled')|eq('enabled')}
+                                        {/if}
+                                        <li>
+                                            <a data-element="report-inefficiency" href="{if is_set($pagedata.contacts['link_segnalazione_disservizio'])}{$pagedata.contacts['link_segnalazione_disservizio']|wash()}{else}{'segnala_disservizio'|ezurl(no)}{/if}">
+                                                {'Report a inefficiency'|i18n('bootstrapitalia/footer')}
+                                            </a>
+                                        </li>
+                                        {/if}
+                                    </ul>
+                                </div>
+                            {/if}
                         </div>
                     </div>
                     {include uri='design:footer/social.tpl'}
@@ -158,12 +192,6 @@
             <div class="row">
                 <div class="col-12 footer-items-wrapper">
                     <div class="footer-bottom border-0 mt-0 pt-0 pb-3">
-
-                        {def $faq_system = fetch(content, object, hash(remote_id, 'faq_system'))}
-                        {if $faq_system}
-                            <a data-element="faq" class="ms-0 me-4" href="{object_handler($faq_system).content_link.full_link}">{'Read the FAQ'|i18n('bootstrapitalia')}</a>
-                        {/if}
-                        {undef $faq_system}
 
                         {def $footer_links = fetch( 'openpa', 'footer_links' )}
                         {foreach $footer_links as $item}

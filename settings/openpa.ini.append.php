@@ -27,4 +27,8 @@ InputValidators[]
 InputValidators[]=OrganizationValidator
 InputValidators[]=EventOrganizationValidator
 
+[FooterLinks]
+Inefficiency=disabled
+Helpdesk=enabled
+Booking=enabled
 */ ?>
