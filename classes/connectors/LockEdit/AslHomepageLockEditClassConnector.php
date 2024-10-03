@@ -258,6 +258,17 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
 
     protected function getLayout(): array
     {
+        $labels = [
+            'search' => 'Motore di ricerca',
+            'news' => 'Notizie in evidenza',
+            'service' => 'Servizi e prestazion',
+            'fse' => 'Fascicolo Sanitario Elettronico',
+            'howto' => 'Come fare per',
+            'usertype' => 'Tutto per',
+            'communications' => 'ASL Comunica',
+            'announcements' => 'Bandi e concorsi',
+        ];
+
         $schema = $this->getSchema();
         $categories = [];
         foreach ($schema['properties'] as $identifier => $property) {
@@ -266,7 +277,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
             if (!isset($categories[$category])) {
                 $categories[$category] = [
                     'identifier' => $category,
-                    'name' => 'Todo name of ' . $category,
+                    'name' => $labels[$category] ?? $category,
                     'identifiers' => [],
                 ];
             }
