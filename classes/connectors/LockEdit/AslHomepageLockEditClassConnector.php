@@ -261,7 +261,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         $labels = [
             'search' => 'Motore di ricerca',
             'news' => 'Notizie in evidenza',
-            'service' => 'Servizi e prestazion',
+            'service' => 'Servizi e prestazioni',
             'fse' => 'Fascicolo Sanitario Elettronico',
             'howto' => 'Come fare per',
             'usertype' => 'Tutto per',
