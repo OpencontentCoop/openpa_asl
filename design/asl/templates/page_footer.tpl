@@ -163,15 +163,15 @@
                                                 {'Book an appointment'|i18n('bootstrapitalia/footer')}
                                             </a>
                                         </li>
-                                        {if openpaini('FooterLinks', 'Helpdesk', 'disabled')|eq('enabled')}
                                         {/if}
+                                        {if openpaini('FooterLinks', 'Helpdesk', 'disabled')|eq('enabled')}
                                         <li>
                                             <a data-element="contacts" href="{if is_set($pagedata.contacts['link_assistenza'])}{$pagedata.contacts['link_assistenza']|wash()}{else}{'richiedi_assistenza'|ezurl(no)}{/if}">
                                                 {'Request assistance'|i18n('bootstrapitalia/footer')}
                                             </a>
                                         </li>
-                                            {if openpaini('FooterLinks', 'Inefficiency', 'disabled')|eq('enabled')}
                                         {/if}
+                                        {if openpaini('FooterLinks', 'Inefficiency', 'disabled')|eq('enabled')}
                                         <li>
                                             <a data-element="report-inefficiency" href="{if is_set($pagedata.contacts['link_segnalazione_disservizio'])}{$pagedata.contacts['link_segnalazione_disservizio']|wash()}{else}{'segnala_disservizio'|ezurl(no)}{/if}">
                                                 {'Report a inefficiency'|i18n('bootstrapitalia/footer')}
