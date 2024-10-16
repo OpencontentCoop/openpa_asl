@@ -147,6 +147,11 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         ],
     ];
 
+    private $hiddenFields = [
+        'section_search_title',
+        'section_search_terms'
+    ];
+
     protected function fetchSourcePathInfo(): array
     {
         return [];
@@ -240,6 +245,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         $schema['properties']['section_news_items']['maxItems'] = 3;
         $schema['properties']['section_service_items']['maxItems'] = 3;
         $schema['properties']['section_howto_items']['maxItems'] = 6;
+        $schema['properties']['section_howto_items']['minItems'] = 1;
         $schema['properties']['section_usertype_items']['maxItems'] = 8;
 
         return $schema;
@@ -252,7 +258,22 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         $options['fields']['section_news_items']['browse']['classes'] = [
             'event', 'article'
         ];
-
+        $options['fields']['section_service_items']['type'] = 'select';
+        $options['fields']['section_service_items']['multiselect'] = [
+            'buttonClass' => 'btn btn-primary',
+            'selectAllText' => ' Seleziona tutti',
+            'nSelectedText' => ' elementi selezionati',
+            'nonSelectedText' => 'Nessun elemento è selezionato',
+            'allSelectedText' => 'Tutti gli elementi sono selezionati',
+        ];
+        foreach ($this->hiddenFields as $field) {
+            $options['fields'][$field]['type'] = 'hidden';
+        }
+        $serviceContainer = eZContentObject::fetchByRemoteID('all-services');
+        if ($serviceContainer instanceof eZContentObject) {
+            $options['fields']['section_fse_item']['browse']['subtree'] = $serviceContainer->mainNodeID();
+        }
+        $options['hideInitValidationError'] = false;
         return $options;
     }
 
@@ -272,6 +293,9 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         $schema = $this->getSchema();
         $categories = [];
         foreach ($schema['properties'] as $identifier => $property) {
+            if (in_array($identifier, $this->hiddenFields)){
+                continue;
+            }
             $parts = explode('_', $identifier, 3);
             $category = $parts[1];
             if (!isset($categories[$category])) {
@@ -355,7 +379,9 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                     break;
 
                 default:
-                    if ($section === 'search' && !empty($data[$sectionBase . 'terms'])){
+                    if ($section === 'search'
+                        && !empty($data[$sectionBase . 'terms'])
+                        && !in_array($sectionBase . 'terms', $this->hiddenFields)){
                         $block['custom_attributes']['search_terms'] = $this->encodeTerms($data[$sectionBase . 'terms']);
                     }
 

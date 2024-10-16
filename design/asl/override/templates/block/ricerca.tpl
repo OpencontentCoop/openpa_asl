@@ -30,7 +30,7 @@
             </div>
             <div class="col-12">
                 {def $terms = array()}
-                {if $block.custom_attributes.search_terms|ne('')}
+                {if and(is_set($block.custom_attributes.search_terms), $block.custom_attributes.search_terms|ne(''))}
                     {def $parts = $block.custom_attributes.search_terms|explode('|')}
                     {foreach $parts as $part}
                         {def $labelAndValue = $part|explode('=>')}
