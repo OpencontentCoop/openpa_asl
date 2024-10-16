@@ -2,7 +2,7 @@
 {def $has_image = cond($node|has_attribute('image'), true(), false())}
 {set_defaults(hash('attribute_index', 0, 'data_element', $openpa.data_element.value))}
 <div data-object_id="{$node.contentobject_id}"
-     class="h-100 font-sans-serif card card-teaser border border-light rounded shadow row p-0 align-items-stretch">
+     class="h-100 font-sans-serif card card-teaser border border-light rounded shadow row p-0 m-0 align-items-stretch">
 
     {if $has_image}
         <div
