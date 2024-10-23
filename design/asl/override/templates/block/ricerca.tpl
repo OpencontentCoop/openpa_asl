@@ -35,7 +35,7 @@
                     {foreach $parts as $part}
                         {def $labelAndValue = $part|explode('=>')}
                         {set $terms = $terms|append(hash(
-                            'url', concat('content/search?SearchText=', $labelAndValue[1]),
+                            'url', concat('content/search?SearchText=', $labelAndValue[1]|wash()),
                             'label', $labelAndValue[0]
                         ))}
                         {undef $labelAndValue}
@@ -51,7 +51,8 @@
                                 {node_view_gui content_node=$valid_node a_class="text-muted" view=text_linked show_icon=false()}
                             </li>
                         {/foreach}
-                    {elseif count($terms)|gt(0)}
+                    {/if}
+                    {if count($terms)|gt(0)}
                         {foreach $terms as $term max 6}
                             <li class="list-inline-item">
                                 <a class="text-muted" href="{$term.url|ezurl(no)}">{$term.label|wash()}</a>

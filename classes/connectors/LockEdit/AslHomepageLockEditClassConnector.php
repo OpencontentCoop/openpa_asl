@@ -149,7 +149,6 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
 
     private $hiddenFields = [
         'section_search_title',
-        'section_search_terms'
     ];
 
     protected function fetchSourcePathInfo(): array

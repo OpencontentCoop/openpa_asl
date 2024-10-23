@@ -71,7 +71,7 @@
                     {foreach $item.attributes as $attribute_index => $openpa_attribute}
 
                         {if $openpa_attribute.full.highlight}
-                        <div class="callout important">
+                        <div class="callout callout-highlight important">
                             {if and($openpa_attribute.full.show_label, $openpa_attribute.full.collapse_label|not(), $item.is_grouped)}
                                 <div class="callout-title">
                                     {display_icon('it-info-circle', 'svg', 'icon')}
