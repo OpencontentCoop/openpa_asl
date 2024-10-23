@@ -26,6 +26,7 @@ UniqueStringCheck[]=public_service/identifier
 InputValidators[]
 InputValidators[]=OrganizationValidator
 InputValidators[]=EventOrganizationValidator
+InputValidators[]=BandoRankingValidator
 
 [FooterLinks]
 Inefficiency=disabled
