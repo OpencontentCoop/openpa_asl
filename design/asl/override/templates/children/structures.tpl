@@ -21,7 +21,7 @@
             "SearchByTopicAndUserType",
             "map",
             hash(
-                "limite", "8",
+                "limite", "6",
                 "includi_classi", "organization",
                 "input_search_placeholder", "Cerca strutture",
                 "view_api", "card_teaser",
