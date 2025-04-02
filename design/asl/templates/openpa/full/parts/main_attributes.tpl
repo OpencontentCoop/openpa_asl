@@ -67,6 +67,8 @@
 					{$openpa[$identifier].contentobject_attribute.content|wash()}
 				{elseif $identifier|eq('reading_time')}
 					{$openpa[$identifier].contentobject_attribute.content|wash()} min
+        {elseif $identifier|eq('data_di_scadenza_delle_iscrizioni')}
+          {$openpa[$identifier].contentobject_attribute.content.timestamp|l10n( 'shortdatetime' )}
 				{else}
 					{$openpa[$identifier].contentobject_attribute.content.timestamp|l10n( 'shortdate' )}
 				{/if}
