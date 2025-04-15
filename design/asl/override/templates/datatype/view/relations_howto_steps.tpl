@@ -2,10 +2,16 @@
     <div class="procedure-wrapper" id="procedure-{$attribute.id}">
         {if count($attribute.content.relation_list)|gt(1)}
         <p>
-            <a href="#" data-procedure-toggle class="procedure-toggle">
-                <span data-procedure-show-all class="">Mostra tutto {display_icon('it-expand', 'svg', 'icon')}</span>
-                <span data-procedure-collapse-all style="display:none">Nascondi tutto {display_icon('it-collapse', 'svg', 'icon')}</span>
-            </a>
+          <a href="#" data-procedure-toggle class="procedure-toggle">
+            <span data-procedure-show-all>
+              {'Precedure view all'|i18n('bootstrapitalia')}
+              {display_icon('it-expand', 'svg', 'icon')}
+            </span>
+            <span data-procedure-collapse-all style="display:none">
+              {'Precedure hide all'|i18n('bootstrapitalia')}
+              {display_icon('it-collapse', 'svg', 'icon')}
+            </span>
+          </a>
         </p>
         {/if}
         {foreach $attribute.content.relation_list as $index => $item}
@@ -20,13 +26,19 @@
                 <div class="procedure-item-body">
                     <p>
                         <a href="#"
-                           data-bs-toggle="collapse"
-                           data-bs-target="#collapse-{$object.id}"
-                           aria-expanded="false"
-                           class="procedure-toggle"
-                           aria-controls="collapse-{$object.id}">
-                            <span data-procedure-show>Mostra dettagli {display_icon('it-expand', 'svg', 'icon')}</span>
-                            <span data-procedure-collapse style="display:none">Nascondi dettagli {display_icon('it-collapse', 'svg', 'icon')}</span>
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapse-{$object.id}"
+                          aria-expanded="false"
+                          class="procedure-toggle"
+                          aria-controls="collapse-{$object.id}">
+                          <span data-procedure-show>
+                            {'Precedure view step'|i18n('bootstrapitalia')}
+                            {display_icon('it-expand', 'svg', 'icon')}
+                          </span>
+                          <span data-procedure-collapse style="display:none">
+                            {'Precedure hide step'|i18n('bootstrapitalia')}
+                            {display_icon('it-collapse', 'svg', 'icon')}
+                          </span>
                         </a>
                     </p>
                     <div id="collapse-{$object.id}"
