@@ -291,6 +291,7 @@ class InfoConnector extends AbstractBaseConnector
     protected function submit()
     {
         $payload = $this->getPayloadFromArray($_POST);
+
         $contentRepository = new ContentRepository();
         $contentRepository->setEnvironment(EnvironmentLoader::loadPreset('content'));
 
@@ -329,13 +330,13 @@ class InfoConnector extends AbstractBaseConnector
         $payload = new PayloadBuilder();
 
         $contacts = [];
-        foreach ($this->contactSections as $section) {
-            foreach ($section['fields'] as $identifier => $field) {
-                $contacts[] = [
-                    'media' => $field['label'],
-                    'value' => $data[$identifier] ?? '',
-                ];
-            }
+        $trans = eZCharTransform::instance();
+        foreach (OpenPAAttributeContactsHandler::getContactsFields() as $label) {
+            $identifier = $trans->transformByGroup($label, 'identifier');
+            $contacts[] = [
+                'media' => $label,
+                'value' => $data[$identifier] ?? '',
+            ];
         }
         $payload->setData(
             $this->getHelper()->getSetting('language'),
