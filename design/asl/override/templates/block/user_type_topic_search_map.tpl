@@ -247,11 +247,20 @@
         },
         onEachFeature: function (feature, layer) {
           let href = feature.properties.urlAlias || '/content/view/full/' + feature.properties.mainNodeId;
-          let popupDefault = '<h6 class="font-sans-serif"><a href="' + href + '" target="_blank">';
-          popupDefault += feature.properties.name;
-          popupDefault += '</a></h6>';
-          let address = feature.properties.address || feature.properties.geo
-          popupDefault += '<p class="font-sans-serif">'+address+'</p>'
+          let popupDefault = `
+            <div class="card-wrapper border border-light rounded shadow-sm pb-0">
+              <div class="card no-after rounded bg-white">
+                <div class="card-body">
+                  <h6 class="font-sans-serif">
+                    <a href="${href}" target="_blank">${feature.properties.name}</a>
+                  </h6>
+                  <p class="font-sans-serif">
+                    ${feature.properties.address || feature.properties.geo}
+                  </p>
+                </div>
+              </div>
+            </div>
+          `;
           let popup = new L.Popup({maxHeight: 400, minWidth: 300});
           popup.setContent(popupDefault);
           layer.bindPopup(popup);
