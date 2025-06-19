@@ -102,9 +102,10 @@
                                                 image_class=imagelargeoverlay
                                                 attribute_index=$attribute_index
                                                 context_class=$node.class_identifier
-                                                relation_view=cond($openpa_attribute.full.show_link|not, 'list', 'banner')
+                                                relation_view=cond(or($item.accordion,$openpa_attribute.full.show_link|not), 'list', cond($openpa_attribute.full.show_as_accordion,'accordion','banner'))
                                                 relation_has_wrapper=$item.wrap
                                                 show_link=true()
+                                                in_accordion=$item.accordion
                                                 tag_view="chip-lg mr-2 me-2"}
                             {if $need_container}</div>{/if}
                             {undef $need_container}
