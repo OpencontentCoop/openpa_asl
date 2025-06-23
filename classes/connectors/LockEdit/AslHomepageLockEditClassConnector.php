@@ -44,7 +44,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "1",
                 "show_all_text" => "Tutti i servizi",
-                "intro_text" => "Scopri e accedi ai servizi dell'Asl come ad esempio visite specialistiche, esami, percorsi di cura, referti e certificati",
+                "intro_text" => "Scopri e accedi ai servizi come ad esempio visite specialistiche, esami, percorsi di cura, referti e certificati",
                 "node_id" => "",
             ],
             "valid_items" => [
@@ -77,7 +77,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "1",
                 "show_all_text" => "Tutti i come fare per",
-                "intro_text" => "Scopri e approfondisci tutte le procedure offerte dall'ASL",
+                "intro_text" => "Scopri e approfondisci tutte le procedure offerte",
             ],
             "valid_items" => [
             ],
@@ -100,7 +100,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
         ],
         [
             "block_id" => "home-communications",
-            "name" => "ASL comunica",
+            "name" => "Comunicazioni",
             "type" => "ListaAutomatica",
             "view" => "lista_card",
             "custom_attributes" => [
@@ -117,7 +117,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "1",
                 "show_all_text" => "Tutte le novità",
-                "intro_text" => "Tutte le notizie, i comunicati stampa e gli eventi dell'ASL",
+                "intro_text" => "Tutte le notizie, i comunicati stampa e gli eventi",
                 "node_id" => "",
             ],
             "valid_items" => [
@@ -140,7 +140,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "",
                 "show_all_text" => "",
-                "intro_text" => "Gli ultimi bandi e concorsi attivi presso l'ASL",
+                "intro_text" => "Gli ultimi bandi e concorsi attivi",
             ],
             "valid_items" => [
             ],
@@ -285,7 +285,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
             'fse' => 'Fascicolo Sanitario Elettronico',
             'howto' => 'Come fare per',
             'usertype' => 'Tutto per',
-            'communications' => 'ASL Comunica',
+            'communications' => 'Comunicazioni',
             'announcements' => 'Bandi e concorsi',
         ];
 
