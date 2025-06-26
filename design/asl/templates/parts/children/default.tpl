@@ -106,6 +106,10 @@
         ))}
         {set $fetch_type = 'tree'}
     {/if}
+    {if $parent_node.object.remote_id|eq('topics')}
+        {set $fetch_type = 'tree'}
+        {set $page_limit = 150}
+    {/if}
 
     {def $children_count = fetch( content, concat( $fetch_type, '_count' ), hash( 'parent_node_id', $parent_node.node_id )|merge( $params ) )}
     {if $children_count}

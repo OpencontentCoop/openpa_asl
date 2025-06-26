@@ -32,4 +32,7 @@ InputValidators[]=BandoRankingValidator
 Inefficiency=disabled
 Helpdesk=enabled
 Booking=enabled
+
+[ChildrenFilters]
+TopicsCountQuery=
 */ ?>

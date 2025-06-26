@@ -1,4 +1,4 @@
-{def $topic_first_block_color_style = 'bg-grey-card pt-40 pt-md-100 pb-50'}
+{set_defaults(hash('first_wrapper_color_style', false()))}
 {def $block_wrappers = parse_layout_blocks($zones).wrappers}
 
 {if count($block_wrappers)|gt(0)}
@@ -7,6 +7,10 @@
        $prev_index = $index|sub(1)}
 
   {def $block_wrapper_color_style = $block_wrapper.color_style}
+
+  {if and($index|eq(0), $first_wrapper_color_style)}
+      {set $block_wrapper_color_style = $first_wrapper_color_style}
+  {/if}
 
   {set $block_wrapper_color_style = $block_wrapper_color_style|explode('bg-grey-card')|implode('bg-light')}
 
