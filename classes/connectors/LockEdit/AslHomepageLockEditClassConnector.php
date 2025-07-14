@@ -44,7 +44,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "1",
                 "show_all_text" => "Tutti i servizi",
-                "intro_text" => "Scopri e accedi ai servizi come ad esempio visite specialistiche, esami, percorsi di cura, referti e certificati",
+                "intro_text" => "Scopri e accedi ai servizi dell'Azienda come ad esempio visite specialistiche, esami, percorsi di cura, referti e certificati",
                 "node_id" => "",
             ],
             "valid_items" => [
@@ -117,7 +117,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "1",
                 "show_all_text" => "Tutte le novità",
-                "intro_text" => "Tutte le notizie, i comunicati stampa e gli eventi",
+                "intro_text" => "Esplora tutte le notizie, i comunicati stampa e gli eventi",
                 "node_id" => "",
             ],
             "valid_items" => [
@@ -140,7 +140,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                 "container_style" => "",
                 "show_all_link" => "",
                 "show_all_text" => "",
-                "intro_text" => "Gli ultimi bandi e concorsi attivi",
+                "intro_text" => "Scopri tutti i bandi e concorsi attivi",
             ],
             "valid_items" => [
             ],
