@@ -207,17 +207,15 @@
 
                         
                         {undef $topics $topic_list $count $max $total $already_displayed $sub_count}
-
-                        {if and($custom_topic_container_item, $custom_topic_container_item.has_children)}
-                        <div class="pt-3 pt-lg-3">
-                            <h6 class="text-uppercase text-black-50">{$custom_topic_container.name|wash()}</h6>
-                            {foreach $custom_topic_container_item.children as $child}
-                                {include uri='design:parts/search/topic_search_input.tpl' topic=$child topic_facets=$topic_facets checked=cond(menu_item_tree_contains($child,$params.topic), true(), false()) selected=$params.topic recursion=0}
-                            {/foreach}
-                        </div>
-                        {/if}
-
                 </fieldset>
+                {if and($custom_topic_container_item, $custom_topic_container_item.has_children)}
+                  <fieldset class="mb-4">
+                      <legend class="h6 text-uppercase mb-4 ps-0">{$custom_topic_container.name|wash()}</legend>
+                      {foreach $custom_topic_container_item.children as $child}
+                          {include uri='design:parts/search/topic_search_input.tpl' topic=$child topic_facets=$topic_facets checked=cond(menu_item_tree_contains($child,$params.topic), true(), false()) selected=$params.topic recursion=0}
+                      {/foreach}
+                  </fieldset>
+                {/if}
 
                 <fieldset class="mb-4">
                     <legend class="h6 text-uppercase mb-4 ps-0">{'Users'|i18n('design/admin/setup/session')}</legend>
