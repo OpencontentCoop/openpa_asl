@@ -112,18 +112,18 @@
                             </div>
                         </div>
                         <div class="col-3" data-result_decoration  style="display:none">
-                            <div class="bootstrap-select-wrapper lh-lg">
+                            <div class="bootstrap-select-wrapper lh-lg" role="alert">
                                 <span class="font-weight-bold" data-count></span> {'contents found'|i18n('bootstrapitalia')}
                             </div>
                         </div>
                         <div class="col-9 text-end" data-result_decoration  style="display:none">
-                            <label class="me-1">{'Sorting by'|i18n('openpa/search')}</label>
-                            <select data-param="sort" class="rounded">
+                            <label class="me-1" for="Sort">{'Sorting by'|i18n('openpa/search')}</label>
+                            <select data-param="sort" class="rounded" id="Sort">
                                 <option selected="selected" value="published">{'Publication date'|i18n('openpa/search')}</option>
                                 <option value="name">{'Name'|i18n('openpa/search')}</option>
                             </select>
-                            <label class="d-none">Direction</label>
-                            <select data-param="direction" class="rounded">
+                            <label class="d-none" for="Order">Direction</label>
+                            <select data-param="direction" class="rounded" id="Order">
                                 <option selected="selected" value="desc">Z-A</option>
                                 <option value="asc">A-Z</option>
                             </select>
