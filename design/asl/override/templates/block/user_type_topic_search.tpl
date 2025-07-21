@@ -32,11 +32,10 @@
                         {foreach $attributes as $attribute}
                             {if $attribute.identifier|eq('topics')}
                                 {def $topics_tree = topics_tree()}
-                                <div class="col-6 col-lg-12 mb-2" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
-                                    <h6 class="text-uppercase mb-2">{$attribute.name|wash()}</h6>
-                                    <div class="mb-3">
+                                <fieldset class="col-6 col-lg-12 mb-4" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
+                                    <legend class="h6 text-uppercase mb-4 ps-0">{$attribute.name|wash()}</legend>
                                         {foreach $topics_tree as $item}
-                                            <div class="form-check custom-control custom-checkbox mb-1"
+                                            <div class="form-check custom-control custom-checkbox mb-3"
                                                  style="display:none"
                                                  data-filter="{$item.contentobject_id}">
                                                 <input name="{$attribute.identifier}.id"
@@ -50,8 +49,7 @@
                                                 </label>
                                             </div>
                                         {/foreach}
-                                    </div>
-                                </div>
+                                </fieldset>
                                 {undef $topics_tree}
 
                             {else}
@@ -63,28 +61,26 @@
                                 {/if}
                                 {set $items_count = fetch(content, concat($attribute.fetch_function, '_count'), hash('parent_node_id', $parent_node_id, 'class_filter_type', 'include', 'class_filter_array', $attribute.class_constraint_list))}
                                 {if $items_count|gt(0)}
-                                    <div class="col-6 col-lg-12 mb-2" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
-                                        <h6 class="text-uppercase mb-2">{$attribute.name|wash()}</h6>
-                                        <div class="mb-3">
+                                    <fieldset class="col-6 col-lg-12 mb-4" data-wrapfilter="{$attribute.identifier}.id" style="display:none">
+                                        <legend class="h6 text-uppercase mb-4 ps-0">{$attribute.name|wash()}</legend>
                                             {def $items = fetch(content, $attribute.fetch_function, hash('parent_node_id', $parent_node_id, 'class_filter_type', 'include', 'class_filter_array', $attribute.class_constraint_list, 'sort_by', $sort_array))}
                                             {foreach $items as $item}
-                                                <div class="form-check custom-control custom-checkbox mb-1"
-                                                     style="display:none"
-                                                     data-filter="{$item.contentobject_id}">
+                                                <div class="form-check custom-control custom-checkbox mb-3"
+                                                      style="display:none"
+                                                      data-filter="{$item.contentobject_id}">
                                                     <input name="{$attribute.identifier}.id"
-                                                           id="{$attribute.identifier}-{$item.contentobject_id}"
-                                                           value="{$item.contentobject_id}"
-                                                           class="custom-control-input"
-                                                           type="checkbox">
+                                                            id="{$attribute.identifier}-{$item.contentobject_id}"
+                                                            value="{$item.contentobject_id}"
+                                                            class="custom-control-input"
+                                                            type="checkbox">
                                                     <label class="custom-control-label fs-6 m-0"
-                                                           for="{$attribute.identifier}-{$item.contentobject_id}">
+                                                            for="{$attribute.identifier}-{$item.contentobject_id}">
                                                         {$item.name|wash()}
                                                     </label>
                                                 </div>
                                             {/foreach}
                                             {undef $items}
-                                        </div>
-                                    </div>
+                                    </fieldset>
                                 {/if}
                                 {undef $items_count $parent_node_id $sort_array}
                             {/if}
