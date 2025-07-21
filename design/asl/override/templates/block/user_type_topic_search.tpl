@@ -43,7 +43,7 @@
                                                        value="{$item.contentobject_id}"
                                                        class="custom-control-input"
                                                        type="checkbox">
-                                                <label class="custom-control-label m-0 fs-6"
+                                                <label class="custom-control-label"
                                                        for="{$attribute.identifier}-{$item.contentobject_id}">
                                                     {$item.name|wash()}
                                                 </label>
@@ -73,7 +73,7 @@
                                                             value="{$item.contentobject_id}"
                                                             class="custom-control-input"
                                                             type="checkbox">
-                                                    <label class="custom-control-label fs-6 m-0"
+                                                    <label class="custom-control-label"
                                                             for="{$attribute.identifier}-{$item.contentobject_id}">
                                                         {$item.name|wash()}
                                                     </label>
