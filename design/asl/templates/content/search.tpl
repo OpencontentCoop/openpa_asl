@@ -38,7 +38,7 @@
 
 <div class="row">
     <div class="col-12 mt-5 pb-4 border-bottom">        
-        <h2>{if $params.text|ne('')}{'Search results for %searchtext'|i18n('openpa/search',,hash('%searchtext',concat('<em>',$params.text|wash(),'</em>')))}{else}{'Search results'|i18n('openpa/search')}{/if}</h2>
+        <h1>{if $params.text|ne('')}{'Search results for %searchtext'|i18n('openpa/search',,hash('%searchtext',concat('<em>',$params.text|wash(),'</em>')))}{else}{'Search results'|i18n('openpa/search')}{/if}</h1>
     </div>
 </div>
 
@@ -57,25 +57,26 @@
     <div class="row">
         <aside class="col-lg-3">
             <div class="d-lg-block d-xl-block collapse mt-5" id="categoryCollapse">
-                
-                <div class="form-group floating-labels">
-                    <div class="form-label-group pr-2 pe-2 pe-2">
-                        <input type="text"
-                               class="form-control pl-0 ps-0"
-                               id="search-text"
-                               name="SearchText"
-                               value="{$params.text|wash()}"
-                               placeholder="{'Search text'|i18n('bootstrapitalia/documents')}"/>
-                        <label class="pl-0 ps-0" for="search-text">{'Search'|i18n('openpa/search')}</label>
-                        <button type="submit" class="autocomplete-icon btn btn-link" aria-label="{'Search'|i18n('openpa/search')}">
-                            {display_icon('it-search', 'svg', 'icon')}
-                        </button>
+                <div class="form-group">
+                  <label class="pl-0 ps-0" for="search-text">{'Search'|i18n('openpa/search')}</label>
+                  <div class="input-group">
+                    <input type="search"
+                            class="form-control pl-0 ps-0"
+                            id="search-text"
+                            name="SearchText"
+                            value="{$params.text|wash()}"
+                            placeholder="{'Search text'|i18n('bootstrapitalia/documents')}"
+                    />
+                    <div class="input-group-append">
+                      <button type="submit" class="btn px-1 rounded-0" aria-label="{'Search'|i18n('openpa/search')}">
+                          {display_icon('it-search', 'svg', 'icon icon-sm')}
+                      </button>
                     </div>
+                  </div>
                 </div>
 
-                <div class="pt-4 pt-lg-0">
-                    <h6 class="text-uppercase">{'Sections'|i18n('openpa/search')}</h6>
-                    <div class="mt-4">
+                <fieldset class="mb-4">
+                    <legend class="h6 text-uppercase mb-4 ps-0">{'Sections'|i18n('openpa/search')}</legend>
                     {foreach $top_menu_node_ids as $id}
                         {def $tree_menu = tree_menu( hash( 'root_node_id', $id, 'scope', 'side_menu'))}
                         {def $has_children = false()}
@@ -94,7 +95,7 @@
                             {set $display = true()}
                         {/if}
                         
-                        <div class="form-check custom-control custom-checkbox m-0">
+                        <div class="form-check custom-control custom-checkbox mb-3">
                             <input name="Subtree[]" {if $has_children}data-checkbox-container {/if}id="subtree-{$tree_menu.item.node_id}" value="{$tree_menu.item.node_id|wash()}" {if or($params.subtree|contains($id), and($display, $has_children|not()))}checked="checked"{elseif $display}data-indeterminate="1"{/if} class="custom-control-input" type="checkbox" />
                             <label class="custom-control-label"{if $has_children} style="max-width: 80%"{/if} for="subtree-{$tree_menu.item.node_id}">{$tree_menu.item.name|wash()} {if is_set($subtree_facets[$id])}<small>({$subtree_facets[$id]})</small>{/if}</label>
                             {if $has_children}
@@ -107,7 +108,7 @@
                         <div class="pl-4 ps-4 collapse{*if $display} show{/if*}" id="more-subtree-{$tree_menu.item.node_id}">
                             {foreach $tree_menu.children as $child}
                                 {if $child.item.node_id|eq($tree_menu.item.node_id)}{skip}{/if} {*tag menu*}
-                                <div class="form-check custom-control custom-checkbox m-0">
+                                <div class="form-check custom-control custom-checkbox mb-3">
                                     <input data-checkbox-child name="Subtree[]" id="subtree-{$child.item.node_id}" value="{$child.item.node_id|wash()}" {if $params.subtree|contains($child.item.node_id)}checked="checked"{/if} class="custom-control-input" type="checkbox">
                                     <label class="custom-control-label" for="subtree-{$child.item.node_id}">{$child.item.name|wash()} {if is_set($subtree_facets[$child.item.node_id])}<small>({$subtree_facets[$child.item.node_id]})</small>{/if}</label>
                                 </div>
@@ -122,7 +123,7 @@
                             {foreach $homepage|attribute($attribute_identifier).content.relation_list as $relation_item}
                                 {def $related_node = fetch(content, node, hash(node_id, $relation_item.node_id))}
                                 {if and($related_node, array('frontpage', 'pagina_sito', 'trasparenza')|contains($related_node.class_identifier), $related_node.can_read)}
-                                <div class="form-check custom-control custom-checkbox m-0">
+                                <div class="form-check custom-control custom-checkbox mb-3">
                                     <input name="Subtree[]" id="subtree-{$related_node.node_id}" value="{$related_node.node_id|wash()}" {if $params.subtree|contains($related_node.node_id)}checked="checked"{/if} class="custom-control-input" type="checkbox" />
                                     <label class="custom-control-label" for="subtree-{$related_node.node_id}">{$related_node.name|wash()} {if is_set($subtree_facets[$related_node.node_id])}<small>({$subtree_facets[$related_node.node_id]})</small>{/if}</label>
                                 </div>
@@ -131,12 +132,11 @@
                             {/foreach}
                         {/if}
                     {/foreach}
-                    </div>
-                </div>
+                </fieldset>
                 
                 
-                <div class="pt-4 pt-lg-5">
-                        <h6 class="text-uppercase">{$topic_menu_label|wash()}</h6>
+                <fieldset class="mb-4">
+                        <legend class="h6 text-uppercase mb-4 ps-0">{$topic_menu_label|wash()}</legend>
                         {def $topics = fetch(content, object, hash(remote_id, 'topics'))
                              $topic_list = tree_menu( hash( 'root_node_id', $topics.main_node_id, 'user_hash', false(), 'scope', 'side_menu'))
                              $topic_list_children = $topic_list.children
@@ -207,20 +207,18 @@
 
                         
                         {undef $topics $topic_list $count $max $total $already_displayed $sub_count}
+                </fieldset>
+                {if and($custom_topic_container_item, $custom_topic_container_item.has_children)}
+                  <fieldset class="mb-4">
+                      <legend class="h6 text-uppercase mb-4 ps-0">{$custom_topic_container.name|wash()}</legend>
+                      {foreach $custom_topic_container_item.children as $child}
+                          {include uri='design:parts/search/topic_search_input.tpl' topic=$child topic_facets=$topic_facets checked=cond(menu_item_tree_contains($child,$params.topic), true(), false()) selected=$params.topic recursion=0}
+                      {/foreach}
+                  </fieldset>
+                {/if}
 
-                        {if and($custom_topic_container_item, $custom_topic_container_item.has_children)}
-                        <div class="pt-3 pt-lg-3">
-                            <h6 class="text-uppercase text-black-50">{$custom_topic_container.name|wash()}</h6>
-                            {foreach $custom_topic_container_item.children as $child}
-                                {include uri='design:parts/search/topic_search_input.tpl' topic=$child topic_facets=$topic_facets checked=cond(menu_item_tree_contains($child,$params.topic), true(), false()) selected=$params.topic recursion=0}
-                            {/foreach}
-                        </div>
-                        {/if}
-
-                </div>
-
-                <div class="pt-4 pt-lg-5">
-                    <h6 class="text-uppercase">{'Users'|i18n('design/admin/setup/session')}</h6>
+                <fieldset class="mb-4">
+                    <legend class="h6 text-uppercase mb-4 ps-0">{'Users'|i18n('design/admin/setup/session')}</legend>
                     {def $user_types = fetch(content, object, hash(remote_id, 'user_types'))
                          $user_types_list = tree_menu( hash( 'root_node_id', $user_types.main_node_id, 'user_hash', false(), 'scope', 'side_menu'))
                          $user_type_list_children = $user_types_list.children
@@ -279,7 +277,7 @@
                         </div>
                     {/if}
 
-                </div>
+                </fieldset>
 
                 {*if count($classes)}
                     <div class="pt-4 pt-lg-5">
@@ -296,7 +294,7 @@
                                     {/if}
                                 {/foreach}
                             {/if}
-                            <div class="form-check custom-control custom-checkbox m-0">
+                            <div class="form-check custom-control custom-checkbox mb-3">
                                 <input name="Class[]" id="class-{$class.id}" value={$class.id|wash()} {if $params.class|contains($class.id)}checked="checked"{/if} class="custom-control-input" type="checkbox">
                                 <label class="custom-control-label" for="class-{$class.id}">{$class.name|wash()} {if $count_by_class|gt(0)}<small>({$count_by_class|wash()})</small>{/if}</label>
                             </div>
@@ -306,8 +304,8 @@
                 {/if*}
                 
                 {if or($params.from,$params.to,$params.only_active)}
-                <div class="pt-4 pt-lg-5">
-                    <h6 class="text-uppercase">{'Options'|i18n('openpa/search')}</h6>
+                <fieldset class="mb-4">
+                    <legend class="h6 text-uppercase mb-4 ps-0">{'Options'|i18n('openpa/search')}</legend>
                     {if $params.only_active}
                         <div class="form-check custom-control custom-checkbox">
                             <input name="OnlyActive" id="onlyactive" value=1 checked="checked" class="custom-control-input" type="checkbox">
@@ -326,7 +324,7 @@
                             <label class="custom-control-label" for="to">{'to'|i18n('openpa/search')} {$params.to|l10n( 'shortdate' )}
                         </div>
                     {/if}
-                </div>
+                </fieldset>
                 {/if}
 
                 <div class="pt-4 pt-lg-5">
@@ -345,9 +343,9 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-2 mb-3 text-center text-lg-start">
                         {if $search.SearchCount|eq(1)}
-                            <p class="m-0 text-nowrap lh-lg"><small>{'Found a result'|i18n('openpa/search')}</small></p>
+                            <p class="m-0 text-nowrap lh-lg" role="status"><small>{'Found a result'|i18n('openpa/search')}</small></p>
                         {else}
-                            <p class="m-0 text-nowrap lh-lg"><small>{'Found %count results'|i18n('openpa/search',,hash('%count', $search.SearchCount))}</small></p>
+                            <p class="m-0 text-nowrap lh-lg" role="status"><small>{'Found %count results'|i18n('openpa/search',,hash('%count', $search.SearchCount))}</small></p>
                         {/if}
                         </div>
                         <div class="col-sm-12 col-md-5 col-lg-4 mb-4 text-center text-md-end">
@@ -372,18 +370,18 @@
                             </button>
                         </div>
                     </div>
-
-                    <div class="row row-cols-1 row-cols-md-2">
+                    <h2 class="visually-hidden">{'Search results'|i18n('openpa/search')}</h2>
+                    <ol class="row row-cols-1 row-cols-md-2">
                         {foreach $search.SearchResult as $child}
-                        <div class="col mb-3">
+                        <li class="col mb-3">
                             {if is_set($child.is_external_data)}
                                 {include name=external_data uri='design:parts/search/external_data_search_result.tpl' data=$child}
                             {else}
                                 {node_view_gui content_node=$child view=search_result show_icon=true() image_class=widemedium}
                             {/if}
-                        </div>
+                        </li>
                         {/foreach}
-                    </div>
+                    </ok>
 
                     {include name=Navigator
                              uri='design:navigator/google.tpl'
@@ -393,7 +391,7 @@
                              view_parameters=$view_parameters
                              item_limit=$page_limit}                 
                 {else}
-                    <p><small>{'No results were found'|i18n('openpa/search')}</small></p>
+                    <p role="status"><small>{'No results were found'|i18n('openpa/search')}</small></p>
                     {if $search.SearchExtras.hasError}<div class="alert alert-danger">{$search.SearchExtras.error|wash}</div>{/if}
                 {/if}
             </div>

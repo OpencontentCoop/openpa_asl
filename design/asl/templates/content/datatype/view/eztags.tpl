@@ -4,11 +4,12 @@
 {foreach $attribute.content.tags as $tag}
     <div class="cmp-tag">
         {if $show_link}
-            <a class="chip chip-simple chip-primary text-button border-primary rounded-2 text-decoration-none" href="{concat( '/tags/view/', $tag.url )|explode('tags/view/tags/view')|implode('tags/view')|ezurl(no)}">
+            <a class="chip chip-simple chip-primary text-button border-primary rounded-2" href="{concat( '/tags/view/', $tag.url )|explode('tags/view/tags/view')|implode('tags/view')|ezurl(no)}">
                 <span class="chip-label lh-sm px-2">{$tag.keyword|wash}</span>
             </a>
         {else}
-        <div class="chip chip-simple chip-primary text-button border-primary rounded-2"><span class="chip-label lh-sm px-2">{$tag.keyword|wash}</span></div>
+        <div class="chip chip-simple chip-primary text-button border-primary rounded-2">
+          <span class="chip-label lh-sm px-2">{$tag.keyword|wash}</span></div>
         {/if}
     </div>
 {/foreach}

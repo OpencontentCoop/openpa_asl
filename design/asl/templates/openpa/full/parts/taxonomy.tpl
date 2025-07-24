@@ -34,7 +34,7 @@
             </div>
         {/if}
         {foreach $current_topics as $object}
-                <a class="chip chip-simple chip-{if $object.section_id|eq(1)}primary{else}danger{/if} text-button border-{if $object.section_id|eq(1)}primary{else}danger{/if} bg-light rounded-2"
+                <a class="chip chip-simple chip-{if $object.section_id|eq(1)}primary{else}danger{/if} text-button border-{if $object.section_id|eq(1)}primary{else}danger{/if} rounded-2"
                    {if $node.class_identifier|eq('public_service')}data-element="service-topic"{/if}
                    href="{$object.main_node.url_alias|ezurl(no)}">
                     <span class="chip-label lh-sm px-2 text-nowrap {if $object.section_id|ne(1)}text-white{/if}">{$object.name|wash()}</span>
@@ -48,7 +48,7 @@
             </div>
         {/if}
         {foreach $current_user_types as $object}
-            <a class="chip chip-simple chip-{if $object.section_id|eq(1)}primary{else}danger{/if} text-button border-{if $object.section_id|eq(1)}primary{else}danger{/if} bg-light rounded-2"
+            <a class="chip chip-simple chip-{if $object.section_id|eq(1)}primary{else}danger{/if} text-button border-{if $object.section_id|eq(1)}primary{else}danger{/if} rounded-2"
                href="{$object.main_node.url_alias|ezurl(no)}">
                 <span class="chip-label lh-sm px-2 text-nowrap {if $object.section_id|ne(1)}text-white{/if}">{$object.name|wash()}</span>
             </a>
@@ -83,7 +83,7 @@
         </div>
     {/if}
     {foreach $node|attribute('type').content.tags as $tag}
-        <a class="chip chip-simple chip-primary text-button border-primary rounded-2 text-decoration-none"
+        <a class="chip chip-simple chip-primary text-button border-primary rounded-2"
            href="{if $parent_openpa.content_tag_menu.has_tag_menu}{concat( $parent_openpa.control_menu.side_menu.root_node.url_alias, '/(view)/', $tag.keyword )|ezurl(no)}{else}#{/if}">
             <span class="chip-label lh-sm px-2 text-nowrap">{$tag.keyword|wash}</span>
        </a>
