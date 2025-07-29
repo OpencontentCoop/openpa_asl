@@ -14,12 +14,12 @@
 {def $need_card_wrapper = cond(array('card_teaser', 'banner_color', 'card_children')|contains($i_view), true(), false())}
 
 {if $items_per_row|eq('auto')}
-    <div {if $grid_wrapper}class="{$grid_wrapper_class}"{/if} data-bs-toggle="masonry">
-    {foreach $items as $child }
-        <div class="col-sm-6 col-lg-4 mb-4{if $need_card_wrapper} card-wrapper card-teaser-wrapper card-teaser-masonry-wrapper{/if} {$card_wrapper_class}">
-            {node_view_gui content_node=$child view=$i_view image_class=$image_class show_icon=$show_icon view_variation=$view_variation exclude_classes=$exclude_classes}
-        </div>
-    {/foreach}
+    <div class="row">
+        {foreach $items as $index => $child}
+            <div class="{if $index|gt(0)}col-md-6{else}col-12{/if} mb-4{if $need_card_wrapper} card-wrapper card-teaser-wrapper{/if} {$card_wrapper_class}">
+                {node_view_gui content_node=$child attribute_index=$index view=$i_view image_class=$image_class show_icon=$show_icon view_variation=cond(and($index|eq(0), $i_view|eq('banner')), 'banner-grid-item-0', $view_variation) exclude_classes=$exclude_classes}
+            </div>
+        {/foreach}
     </div>
 
 {elseif and(array('2','3','4')|contains($items_per_row), $need_card_wrapper)}
