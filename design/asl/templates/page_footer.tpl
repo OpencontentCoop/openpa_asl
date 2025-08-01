@@ -15,7 +15,7 @@
 
             <div class="row">
                 <div class="col-12 footer-items-wrapper logo-wrapper">
-                    {if $pagedata.homepage|has_attribute('footer_logo')}
+                    {if and($pagedata.homepage|has_attribute('footer_logo'), $pagedata.homepage|attribute('footer_logo').data_type_string|eq('ezimage'))}
                         <div class="it-brand-wrapper">
                             <a href="{'/'|ezurl(no)}"
                                title="{ezini('SiteSettings','SiteName')}">
@@ -24,6 +24,19 @@
                                      src="{render_image($pagedata.homepage|attribute('footer_logo').content['header_logo'].full_path|ezroot(no,full)).src}" />
                             </a>
                         </div>
+                    {elseif and($pagedata.homepage|has_attribute('footer_logo'), $pagedata.homepage|attribute('footer_logo').data_type_string|eq('ezobjectrelationlist'))}
+                        {include uri='design:logo.tpl' in_footer=true()}
+                        {foreach $pagedata.homepage|attribute('footer_logo').content.relation_list as $related}
+                            {def $related_object = fetch(content, object, hash(object_id, $related['contentobject_id']))}
+                            {if and($related_object, $related_object|has_attribute('image'))}
+                                <img
+                                        style="max-width: 100%; max-height: 56px; object-fit: contain; object-position: 0 0; vertical-align: middle;"
+                                        alt="{$related_object|attribute('name').content|wash()}"
+                                        src="{render_image($related_object|attribute('image').content['header_logo'].full_path|ezroot(no,full)).src}"
+                                        loading="lazy" />
+                            {/if}
+                            {undef $related_object}
+                        {/foreach}
                     {else}
                         {include uri='design:logo.tpl' in_footer=true()}
                     {/if}
