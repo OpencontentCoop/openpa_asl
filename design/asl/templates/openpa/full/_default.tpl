@@ -30,9 +30,7 @@
 </section>
 
 {if $node.children_count}
-<div class="section section-muted section-inset-shadow p-4 pt-5">
     {node_view_gui content_node=$node view=children view_parameters=$view_parameters}
-</div>
 {/if}
 
 {if $openpa['content_tree_related'].full.exclude|not()}
