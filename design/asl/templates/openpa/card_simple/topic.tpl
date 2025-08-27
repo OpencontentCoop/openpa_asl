@@ -23,9 +23,11 @@
                 <div class="mt-4">
                     {foreach $node.children as $child}
                         {if topic_has_contents($child.contentobject_id)}
-                        <a class="text-decoration-none text-nowrap d-inline-block " href="{$child.url_alias|ezurl(no)}"
+                        <a class="text-nowrap d-inline-block " href="{$child.url_alias|ezurl(no)}"
                            data-eurovoc="{$child|attribute('eu').data_text|wash()}" data-element="{object_handler($child).data_element.value|wash()}">
-                            <div class="chip chip-simple text-button border-primary rounded-2 text-decoration-none chip-{if $child.object.section_id|eq(1)}primary{else}danger{/if}"><span class="chip-label lh-sm px-2">{$child.name|wash()}</span></div>
+                            <div class="chip chip-simple text-button border-primary rounded-2 chip-{if $child.object.section_id|eq(1)}primary{else}danger{/if}">
+                              <span class="chip-label lh-sm px-2">{$child.name|wash()}</span>
+                            </div>
                         </a>
                         {/if}
                     {/foreach}

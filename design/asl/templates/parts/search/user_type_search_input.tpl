@@ -1,4 +1,4 @@
-<div class="form-check custom-control custom-checkbox m-0">
+<div class="form-check custom-control custom-checkbox mb-3">
     <input name="UserType[]"
            id="user_type-{$user_type.item.node_id}"
            value={$user_type.item.node_id}
