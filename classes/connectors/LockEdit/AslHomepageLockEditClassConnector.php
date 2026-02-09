@@ -18,6 +18,20 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
             ],
         ],
         [
+            "block_id" => "home-monitoring",
+            "name" => "",
+            "type" => "HTML",
+            "view" => "html",
+            "custom_attributes" => [
+                "color_style" => "",
+                "container_style" => "",
+                "api" => "",
+                "html" => "",
+            ],
+            "valid_items" => [
+            ],
+        ],
+        [
             "block_id" => "home-news",
             "name" => "In evidenza",
             "type" => "ListaManuale",
@@ -227,6 +241,10 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
             'section_announcements_intro' =>
                 $this->findBlockById('home-announcements')['custom_attributes']['intro_text'] ??
                 $this->findBlockById('home-announcements', true)['custom_attributes']['intro_text'],
+
+            'section_monitoring_api' =>
+                $this->findBlockById('home-monitoring')['custom_attributes']['api'] ??
+                $this->findBlockById('home-monitoring', true)['custom_attributes']['api'],
         ];
     }
 
@@ -287,6 +305,7 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
             'usertype' => 'Tutto per',
             'communications' => 'Comunicazioni',
             'announcements' => 'Bandi e concorsi',
+            'monitoring' => 'Dashboard di monitoraggio',
         ];
 
         $schema = $this->getSchema();
@@ -375,6 +394,19 @@ class AslHomepageLockEditClassConnector extends LockEditClassConnector
                         }
                     }
                     $block['valid_items'] = $validItems;
+                    break;
+
+                case 'monitoring':
+                    if (isset($data[$sectionBase . 'api'])) {
+                        $apiUrl = $data[$sectionBase . 'api'];
+                        $widgetUrl = OpenPAINI::variable(
+                            'MonitoraggioPS',
+                            'ScriptSrc',
+                            "https://s3.eu-west-1.amazonaws.com/static.opencityitalia.it/widgets/attesa-ps/latest/bootstrap-italia%402/js/web-formio.js"
+                        );
+                        $block['custom_attributes']['api'] = $apiUrl;
+                        $block['custom_attributes']['html'] = '<widget-attesa-ps url="' . $apiUrl . '" city=""></widget-attesa-ps><script src="' . $widgetUrl . '"></script>';
+                    }
                     break;
 
                 default:

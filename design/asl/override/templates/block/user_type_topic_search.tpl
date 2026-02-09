@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="col-3" data-result_decoration  style="display:none">
-                            <div class="bootstrap-select-wrapper lh-lg" role="alert">
+                            <div class="bootstrap-select-wrapper lh-lg" role="status">
                                 <span class="font-weight-bold" data-count></span> {'contents found'|i18n('bootstrapitalia')}
                             </div>
                         </div>

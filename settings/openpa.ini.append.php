@@ -35,4 +35,7 @@ Booking=enabled
 
 [ChildrenFilters]
 TopicsCountQuery=
+
+[MonitoraggioPS]
+ScriptSrc=https://s3.eu-west-1.amazonaws.com/static.opencityitalia.it/widgets/attesa-ps/version/0.2.3/bootstrap-italia%402/js/web-formio.js
 */ ?>

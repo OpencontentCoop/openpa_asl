@@ -82,10 +82,55 @@
             )
         )}
     {/if}
-    {if count($search_blocks)}
-        {include uri='design:zone/default.tpl' zones=array(hash('blocks', $search_blocks))}
-    {/if}
 {/if}
+
+{if and(
+    openpaini('ViewSettings', 'ChildrenFilter', 'enabled')|eq('enabled'),
+    $node|has_attribute('show_search_form')
+)}
+    {def $children_filters = openpaini('ChildrenFilters', 'Remotes', array())}
+    {if and(is_set($children_filters[$node.object.remote_id]), $children_filters[$node.object.remote_id]|eq('search'))}
+        {set $search_blocks = array(page_block(
+            "",
+            "OpendataRemoteContents",
+            "default",
+            hash(
+                "remote_url", "",
+                "query", concat("raw[meta_node_id_si] != " , $node.node_id, " and subtree [", $node.node_id, "] sort [name=>asc]"),
+                "show_grid", "1",
+                "show_map", "0",
+                "show_search", "1",
+                "limit", 9,
+                "items_per_row", 3,
+                "facets", "",
+                "view_api", 'card_simple',
+                "color_style", "",
+                "fields", "",
+                "template", "",
+                "simple_geo_api", "0",
+                "input_search_placeholder", ""
+                )
+            )
+        )}
+    {elseif and(is_set($children_filters[$node.object.remote_id]), $children_filters[$node.object.remote_id]|eq('search-roles'))}
+        {set $search_blocks = array(page_block(
+            "",
+            "SearchPeopleByRole",
+            "default",
+            hash(
+                "subtree", $node.node_id,
+                "input_search_placeholder", "",
+                "limit", 9,
+                "items_per_row", 3
+                )
+            )
+        )}
+    {/if}
+    {undef $children_filters}
+{/if}
+{if count($search_blocks)}
+    {include uri='design:zone/default.tpl' zones=array(hash('blocks', $search_blocks))}
+{/if} 
 
 {if and(count($search_blocks)|eq(0), or($openpa.content_tag_menu.show_tag_cards|not(), $openpa.content_tag_menu.current_view_tag))}
     {if count($include_classes)}
